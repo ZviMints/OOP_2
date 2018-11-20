@@ -1,8 +1,6 @@
 package Testing;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.text.DecimalFormat;
-
 import org.junit.jupiter.api.Test;
 import Coords.MyCoords;
 import Geom.Point3D;
@@ -42,6 +40,7 @@ class MyCoordsTest {
 	void testAzimuth_elevation_dist() {
 		 p0 = new Point3D(32.103315,35.209039,670);
 		 p1 = new Point3D(32.106352,35.205225,650);
+		 fail("Not Implement");
 	}
 
 	@Test
@@ -51,7 +50,6 @@ class MyCoordsTest {
 		Point3D p1_wrong_y_1 = new Point3D(0,100,0);
 		Point3D p1_wrong_y_2 = new Point3D(0,-100,0);
 		Point3D p1_wrong_z = new Point3D(0,0,-500);
-		
 		
 		Point3D p2_true_1 = new Point3D(-180,-90,-450);
 		Point3D p2_true_2 = new Point3D(180,90,Integer.MAX_VALUE);

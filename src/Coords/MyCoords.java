@@ -1,10 +1,20 @@
+/**
+ * This method is responsible for actions between Objects of the kind Point3D.
+ * @author Tzvi Mints and Or Abuhazira
+ * @version 1.0
+ */
 package Coords;
 import Geom.Point3D;
 
 public class MyCoords implements coords_converter {
+	
+	/* * * * * * * * * * * * * * * * * * Constant * * * * * * * * * * * * * * * */
+	/** This Constant represent radius of the globe **/
 	private static final double radius = 6371000;
+	/** This Constant represent Math.PI ~ 3.14 **/
 	private static final double PI = Math.PI;
 
+	/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
 	@Override
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
 		if(!isValid_GPS_Point(gps)) return new Point3D(0,0,0); // Wrong input, will will return (0,0,0)
@@ -53,7 +63,6 @@ public class MyCoords implements coords_converter {
 		return ans;
 	}
 
-
 	@Override
 	public boolean isValid_GPS_Point(Point3D p) {
 		double lat = p.x();
@@ -64,17 +73,27 @@ public class MyCoords implements coords_converter {
 				(alt >= -450));
 	}
 	/* * * * * * * * * * * * * * * * * * Calculation * * * * * * * * * * * * * * * */
+	/** This Method get the Lon_Norm from double **/
 	private double getLon_Norm(double x) { return Math.cos(x * (PI/180)); }
-	private double DTR (double x) { return x* PI/180; } // Degrees to Radian
-	private double RTM_x (double x) { return Math.sin(x)*radius; } // Radian to Meter
-	private double RTM_y (double y , double Lon_Norm) { return  Math.sin(y)*radius*Lon_Norm; } // Radian to Meter
-	private double DTM_x(double x) { return RTM_x(DTR(x)); } // Degrees to Meter
-	private double DTM_y(double y, double x) { return RTM_y(DTR(y),getLon_Norm(x)); } // Degrees to Meter
-
-	private double RTD (double x) { return x* 180/PI; } // Radian to Degrees
-	private double MTR_x (double x) { return Math.asin(x/radius); } // Meter to Radian
+	/** This Method convert Degrees to Radian **/
+	private double DTR (double x) { return x* PI/180; }
+	/** This Method convert Radian to Meter for Lat **/
+	private double RTM_x (double x) { return Math.sin(x)*radius; }
+	/** This Method convert Radian to Meter for Lon **/
+	private double RTM_y (double y , double Lon_Norm) { return  Math.sin(y)*radius*Lon_Norm; }
+	/** This Method convert Degree to Meter for Lat **/
+	private double DTM_x(double x) { return RTM_x(DTR(x)); }
+	/** This Method convert Degree to Meter for Lon **/
+	private double DTM_y(double y, double x) { return RTM_y(DTR(y),getLon_Norm(x)); } 
+	/** This Method convert Radian to Degrees **/
+	private double RTD (double x) { return x* 180/PI; }
+	/** This Method convert Meter to Radian for Lat **/
+	private double MTR_x (double x) { return Math.asin(x/radius); }
+	/** This Method convert Meter to Radian for Lon **/
 	private double MTR_y (double y , double Lon_Norm) { return  Math.asin(y/(radius*Lon_Norm)); } //  Meter to Radian
+	/** This Method convert Meter to Degrees for Lat **/
 	private double MTD_x(double x) { return (RTD(MTR_x(x))); } // Degrees to Meter
+	/** This Method convert Meter to Degrees for Lon **/
 	private double MTD_y(double y, double x) {return RTD(MTR_y(y,getLon_Norm(x)));} // Degrees to Meter
 
 }
