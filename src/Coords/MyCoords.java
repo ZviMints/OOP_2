@@ -5,20 +5,6 @@ public class MyCoords implements coords_converter {
 	private static final double radius = 6371000;
 	private static final double PI = Math.PI;
 
-	private double getLon_Norm(double x) { return Math.cos(x * (PI/180)); }
-	private double DTR (double x) { return x* PI/180; } // Degrees to Radian
-	private double RTM_x (double x) { return Math.sin(x)*radius; } // Radian to Meter
-	private double RTM_y (double y , double Lon_Norm) { return  Math.sin(y)*radius*Lon_Norm; } // Radian to Meter
-	private double DTM_x(double x) { return RTM_x(DTR(x)); }
-	private double DTM_y(double y, double x) { return RTM_y(DTR(y),getLon_Norm(x)); }
-
-	private double RTD (double x) { return x* 180/PI; } // Radian to Degrees
-	private double MTR_x (double x) { return Math.asin(x/radius); } // Meter to Radian
-	private double MTR_y (double y , double Lon_Norm) { return  Math.asin(y/(radius*Lon_Norm)); } //  Meter to Radian
-	private double MTD_x(double x) { return (RTD(MTR_x(x))); }
-	private double MTD_y(double y, double x) {return RTD(MTR_y(y,getLon_Norm(x)));}
-
-
 	@Override
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
 		if(!isValid_GPS_Point(gps)) return new Point3D(0,0,0); // Wrong input, will will return (0,0,0)
@@ -59,7 +45,7 @@ public class MyCoords implements coords_converter {
 		double dz = gps1.z() - gps0.z();
 		ans[2] = distance3d(gps0,gps1);  // distance
 		ans[1] = Math.asin(dz / ans[2]); // elevation
-		double alpha = Math.atan(Math.abs(dy/dx));
+		double alpha = RTD(Math.atan(Math.abs(dy/dx)));
 		if(dy >=0 && dx < 0 ) alpha = 180 - alpha;
 		else if(dy<0 && dx <0) alpha = 180 + alpha;
 		else if(dy<0 && dx >=0) alpha = 360 - alpha;
@@ -77,5 +63,18 @@ public class MyCoords implements coords_converter {
 				(lon >= -90 && lon <= 90) &&
 				(alt >= -450));
 	}
+	/* * * * * * * * * * * * * * * * * * Calculation * * * * * * * * * * * * * * * */
+	private double getLon_Norm(double x) { return Math.cos(x * (PI/180)); }
+	private double DTR (double x) { return x* PI/180; } // Degrees to Radian
+	private double RTM_x (double x) { return Math.sin(x)*radius; } // Radian to Meter
+	private double RTM_y (double y , double Lon_Norm) { return  Math.sin(y)*radius*Lon_Norm; } // Radian to Meter
+	private double DTM_x(double x) { return RTM_x(DTR(x)); } // Degrees to Meter
+	private double DTM_y(double y, double x) { return RTM_y(DTR(y),getLon_Norm(x)); } // Degrees to Meter
+
+	private double RTD (double x) { return x* 180/PI; } // Radian to Degrees
+	private double MTR_x (double x) { return Math.asin(x/radius); } // Meter to Radian
+	private double MTR_y (double y , double Lon_Norm) { return  Math.asin(y/(radius*Lon_Norm)); } //  Meter to Radian
+	private double MTD_x(double x) { return (RTD(MTR_x(x))); } // Degrees to Meter
+	private double MTD_y(double y, double x) {return RTD(MTR_y(y,getLon_Norm(x)));} // Degrees to Meter
 
 }
