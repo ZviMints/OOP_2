@@ -95,5 +95,4 @@ public class MyCoords implements coords_converter {
 	private double MTD_x(double x) { return (RTD(MTR_x(x))); } // Degrees to Meter
 	/** This Method convert Meter to Degrees for Lon **/
 	private double MTD_y(double y, double x) {return RTD(MTR_y(y,getLon_Norm(x)));} // Degrees to Meter
-
 }

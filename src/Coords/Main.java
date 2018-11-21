@@ -8,12 +8,14 @@ public class Main {
 	public static void main(String[] args) {
 		MyCoords me = new MyCoords();
 		
-		Point3D a = new Point3D(32.10332,35.20904,32);
-		Point3D b = new Point3D(32.10635,35.60523,99.9);
+		 Point3D a = new Point3D(32.103315,35.209039,670);
+		 Point3D b = new Point3D(32.106352,35.205225,650);
 		
 
 	
-		System.out.println(Arrays.toString(me.azimuth_elevation_dist(a,b)));
+		System.out.println(me.distance3d(a, b));
+		System.out.println(me.vector3D(a, b));
+		System.out.println(me.add(a, me.vector3D(a, b)));
 
 	}
 
