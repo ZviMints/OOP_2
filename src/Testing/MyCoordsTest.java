@@ -1,6 +1,7 @@
 package Testing;
 import static org.junit.jupiter.api.Assertions.*;
 import java.text.DecimalFormat;
+
 import org.junit.jupiter.api.Test;
 import Coords.MyCoords;
 import Geom.Point3D;
@@ -40,19 +41,20 @@ class MyCoordsTest {
 	void testAzimuth_elevation_dist() {
 		 p0 = new Point3D(32.103315,35.209039,670);
 		 p1 = new Point3D(32.106352,35.205225,650);
-		 fail("Not Implement");
+		 double[] ans = {313.23042032646896, -2.3247635173865278, 493.0523318324134};
+		 assertArrayEquals(ans, coords.azimuth_elevation_dist(p0, p1));
 	}
 
 	@Test
 	void testIsValid_GPS_Point() {
-		Point3D p1_wrong_x_1 = new Point3D(-190,0,0);
-		Point3D p1_wrong_x_2 = new Point3D(190,0,0);
-		Point3D p1_wrong_y_1 = new Point3D(0,100,0);
-		Point3D p1_wrong_y_2 = new Point3D(0,-100,0);
+		Point3D p1_wrong_x_1 = new Point3D(-91,0,0);
+		Point3D p1_wrong_x_2 = new Point3D(91,0,0);
+		Point3D p1_wrong_y_1 = new Point3D(0,181,0);
+		Point3D p1_wrong_y_2 = new Point3D(0,-181,0);
 		Point3D p1_wrong_z = new Point3D(0,0,-500);
 		
-		Point3D p2_true_1 = new Point3D(-180,-90,-450);
-		Point3D p2_true_2 = new Point3D(180,90,Integer.MAX_VALUE);
+		Point3D p2_true_1 = new Point3D(-90,-180,-450);
+		Point3D p2_true_2 = new Point3D(90,180,Integer.MAX_VALUE);
 
 		assertFalse(coords.isValid_GPS_Point(p1_wrong_x_1));
 		assertFalse(coords.isValid_GPS_Point(p1_wrong_x_2));

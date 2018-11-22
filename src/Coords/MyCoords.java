@@ -7,7 +7,7 @@ package Coords;
 import Geom.Point3D;
 
 public class MyCoords implements coords_converter {
-	
+
 	/* * * * * * * * * * * * * * * * * * Constant * * * * * * * * * * * * * * * */
 	/** This Constant represent radius of the globe **/
 	private static final double radius = 6371000;
@@ -50,28 +50,42 @@ public class MyCoords implements coords_converter {
 	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
 		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) return new double[3]; // Wrong input, will return [0,0,0]
 		double[] ans = new double[3]; // ans[0,1,2] = [azimuth,elevation,distance]
-		double dx = gps1.x() - gps0.x();
-		double dy = gps1.y() - gps0.y();
-		double dz = gps1.z() - gps0.z();
-		ans[2] = distance3d(gps0,gps1);  // distance
-		ans[1] = Math.asin(dz / ans[2]); // elevation
-		double alpha = RTD(Math.atan(Math.abs(dy/dx)));
-		if(dy >=0 && dx < 0 ) alpha = 180 - alpha;
-		else if(dy<0 && dx <0) alpha = 180 + alpha;
-		else if(dy<0 && dx >=0) alpha = 360 - alpha;
-		ans[0] = alpha; // azimuth
+		double x0 = gps0.x(), x1 = gps1.x(),
+				y0 = gps0.y(), y1 = gps1.y(), 
+				z0 = gps0.z(), z1 = gps1.z();
+		double distance  =  distance3d(gps0,gps1);
+	    double azimuth = azimuth(x0,y0,x1,y1);
+		double elevation = Math.toDegrees(Math.asin((z1-z0)/distance));
+		ans[2] = distance;
+		ans[1] = elevation;
+		ans[0] = azimuth;
 		return ans;
 	}
-
 	@Override
 	public boolean isValid_GPS_Point(Point3D p) {
+		// x is latitude ( ----- ) in [-90°,90°]
+		// y is longitude ( | )  in [-180°,180°]
+		// z is Altitude in [-450,inf)
 		double lat = p.x();
 		double lon = p.y();
 		double alt = p.z();
-		return((lat >= -180 && lat <= 180) &&
-				(lon >= -90 && lon <= 90) &&
+		return((lat >= -90 && lat <= 90) &&
+				(lon >= -180 && lon <= 180) &&
 				(alt >= -450));
 	}
+	/* * * * * * * * * * * * * * * * * * Azimuth * * * * * * * * * * * * * * * */
+	public double azimuth(double lat,double lon,double lat2,double lon2){
+	    double teta1 = Math.toRadians(lat);
+	    double teta2 = Math.toRadians(lat2);
+	    double delta2 = Math.toRadians(lon2-lon);
+	    double y = Math.sin(delta2) * Math.cos(teta2);
+	    double x = Math.cos(teta1)*Math.sin(teta2) - Math.sin(teta1)*Math.cos(teta2)*Math.cos(delta2);
+	    double azimuth = Math.atan2(y,x);
+	    azimuth = Math.toDegrees(azimuth);
+	    azimuth = ((azimuth + 360) % 360); 
+	    return azimuth;
+	  }
+	
 	/* * * * * * * * * * * * * * * * * * Calculation * * * * * * * * * * * * * * * */
 	/** This Method get the Lon_Norm from double **/
 	private double getLon_Norm(double x) { return Math.cos(x * (PI/180)); }

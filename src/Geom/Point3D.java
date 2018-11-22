@@ -8,6 +8,9 @@ public class Point3D implements Geom_element, Serializable
 	 */
 	private static final long serialVersionUID = 1L;
 	private double _x,_y,_z;
+	// x is latitude ( ----- ) in [-90°,90°]
+	// y is longitude ( | )  in [-180°,180°]
+	// z is Altitude in [-450,inf)
 
 	public Point3D(double x,double y,double z) 
 	{

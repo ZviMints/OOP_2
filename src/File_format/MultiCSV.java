@@ -1,9 +1,6 @@
 package File_format;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedList;
 
 public class MultiCSV {
 	public MultiCSV(String path) throws IOException
@@ -11,24 +8,23 @@ public class MultiCSV {
 		MultiWriter(path);
 	}
 	private static void MultiWriter(String path) throws IOException {
-		 File root = new File( path );
-	        File[] list = root.listFiles();
+		File root = new File(path);
+		File[] list = root.listFiles();
 
-	        if (list == null) return;
-
-	        for ( File f : list ) {
-	            if ( f.isDirectory() ) {
-	            	MultiWriter( f.getAbsolutePath() );
-	            	
-	                System.out.println( "Dir:" + f.getAbsoluteFile() );
-	            }
-	            else {
-	            	Csv2kml kml = new Csv2kml( f.getAbsolutePath());
-	                System.out.println( "File:" + f.getAbsoluteFile() );
-	            }
-	        }
-	    }
+		if (list == null) return; // The Folder not contain any files
+		for ( File f : list ) { // for all files in list
+			if (f.isDirectory()) { 
+				MultiWriter(f.getAbsolutePath()); // recursive 
+			}
+			else {
+				String Location = f.getAbsolutePath(); // Location <-- getting the Location of the file
+				String ending = Location.substring(Location.lastIndexOf(".") + 1 ); // ending <-- ending of the file
+				if(ending.equals("csv")) // if the file is ".csv" format 
+				{
+					try { Csv2kml kml = new Csv2kml(f.getAbsolutePath()); } 
+					catch (Exception e) { System.out.println(e.getMessage());} 
+				}
+			}
+		}
 	}
-		
-
-
+}

@@ -13,14 +13,14 @@ public class Csv2kml {
 	private static String ans;
 
 	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
-	public Csv2kml(String path) throws IOException { this.setPath(path); Convert(); }
+	public Csv2kml(String path) throws Exception { this.setPath(path); Convert(); }
 
 	/* * * * * * * * * * * * * * Setters And Getters * * * * * * * * * * * * * * * */
 	public String getPath() { return path; }
 	public void setPath(String path) { Csv2kml.path = path; }
 
 	/* * * * * * * * * * * * * * * * * * Convert * * * * * * * * * * * * * * * */
-	public static void Convert() throws IOException
+	public static void Convert() throws Exception
 	{
 		File file = new File(path);
 		br = new BufferedReader(new FileReader(file));
@@ -53,15 +53,14 @@ public class Csv2kml {
 					rows[3], // FirstSeen
 					rows[4], // Channel
 					rows[5], // RSSI
-					point,   // (CurrentLatitude,CurrentLongitude,AltitudeMeters)
+					point,   // (CurrentLatitude(шезб),CurrentLongitude(аешк),AltitudeMeters)
 					rows[9], // AccuracyMeters
 					rows[10]); // Type
 			data = br.readLine();
 		}
 		String tail = "</Folder>" + "\n" 
-				     + "</Document></kml>";
+				+ "</Document></kml>";
 		ans = header + KML_BODY + tail;
-		System.out.println(ans);
 		MakeFile();
 	}
 
@@ -75,22 +74,28 @@ public class Csv2kml {
 				+ "Capabilities: <b>" + AuthMode + "</b><br/>" 
 				+ "Frequency: <b>" + "2462" + "</b><br/>"  // Need to Implement
 				+ "Timestamp: <b>" + FirstSeen + "</b><br/>"
-				+ "Date: <b>" + FirstSeen +"/b>]]></description><styleUrl>#red</styleUrl>" + "\n"
+				+ "Date: <b>" + FirstSeen +"</b>]]></description><styleUrl>#red</styleUrl>" + "\n"
 				+ "<Point>" + "\n"
-				+ "<coordinates>" + point.y() +","+point.x()+","+point.z() + "</coordinates>" + "\n"
+				+ "<coordinates>" + point.y() + "," + point.x() + "," + point.z() + "</coordinates>" + "\n"
+				// Notice! Google takes Lon and then Lat.
 				+ "</Point>" + "\n"
 				+ "</Placemark>" + "\n";
 		return body;
 	}
 	/* * * * * * * * * * * * * * * * * * File Writer * * * * * * * * * * * * * * * */
-	public static void MakeFile() throws FileNotFoundException
+	public static void MakeFile() throws Exception
 	{
 		String filename = path.replaceAll(".csv", ".kml");
-		PrintWriter pw = new PrintWriter(new File(filename));
-		StringBuilder sb = new StringBuilder();	
-		sb.append(ans);
-		pw.write(sb.toString());
-		pw.close();
+		boolean fileExists = new File(filename).exists();
+		if(fileExists) throw new Exception(filename + " Alredy Exists!");
+		else
+		{
+			PrintWriter pw = new PrintWriter(new File(filename));
+			StringBuilder sb = new StringBuilder();	
+			sb.append(ans);
+			pw.write(sb.toString());
+			pw.close();
+		}
 	}
 
 }
