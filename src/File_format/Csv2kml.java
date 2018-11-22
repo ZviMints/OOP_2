@@ -77,7 +77,7 @@ public class Csv2kml {
 				+ "Timestamp: <b>" + FirstSeen + "</b><br/>"
 				+ "Date: <b>" + FirstSeen +"/b>]]></description><styleUrl>#red</styleUrl>" + "\n"
 				+ "<Point>" + "\n"
-				+ "<coordinates>" + point.x() +","+point.y()+","+point.z() + "</coordinates>" + "\n"
+				+ "<coordinates>" + point.y() +","+point.x()+","+point.z() + "</coordinates>" + "\n"
 				+ "</Point>" + "\n"
 				+ "</Placemark>" + "\n";
 		return body;
