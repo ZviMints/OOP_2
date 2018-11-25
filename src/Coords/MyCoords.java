@@ -20,9 +20,10 @@ public class MyCoords implements coords_converter {
 		if(!isValid_GPS_Point(gps)) return new Point3D(0,0,0); // Wrong input, will will return (0,0,0)
 		double x = MTD_x(local_vector_in_meter.x());
 		double y = MTD_y(local_vector_in_meter.y(),gps.x());
-		return new Point3D(gps.x() + x ,
+		Point3D ans = new Point3D(gps.x() + x ,
 				gps.y() + y ,
 				gps.z() + local_vector_in_meter.z());
+		return ans;
 	}
 
 	@Override
@@ -30,9 +31,10 @@ public class MyCoords implements coords_converter {
 		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) return 0; // Wrong input, will return 0
 		double dx = gps1.x() - gps0.x();
 		double dy = gps1.y() - gps0.y();
+//		double dz  = gps1.z() - gps0.z(); // Error in xl
 		double x_m = DTM_x(dx);
-		double y_m = DTM_y(dy,gps0.x()); // Ask Why ??
-		return Math.sqrt(Math.pow(x_m, 2) + Math.pow(y_m, 2));
+		double y_m = DTM_y(dy,gps0.x()); 
+		return Math.sqrt(Math.pow(x_m, 2) + Math.pow(y_m, 2)); // Error in xl?  + Math.pow(dz, 2)
 	}
 
 	@Override
@@ -42,7 +44,7 @@ public class MyCoords implements coords_converter {
 		double dy = gps1.y() - gps0.y();
 		double dz = gps1.z() - gps0.z();
 		return new Point3D(DTM_x(dx),
-				DTM_y(dy,gps0.x()),
+				DTM_y(dy,gps0.x()), // Why Gps0, Need to check with Boaz.
 				dz);
 	}
 
@@ -55,7 +57,8 @@ public class MyCoords implements coords_converter {
 				z0 = gps0.z(), z1 = gps1.z();
 		double distance  =  distance3d(gps0,gps1);
 	    double azimuth = azimuth(x0,y0,x1,y1);
-		double elevation = Math.toDegrees(Math.asin((z1-z0)/distance));
+		double elevation = Math.toDegrees(Math.asin((z1-z0)/distance)); // its should not be that distance.
+		                                                               // need to check with Boaz. 
 		ans[2] = distance;
 		ans[1] = elevation;
 		ans[0] = azimuth;
@@ -65,7 +68,7 @@ public class MyCoords implements coords_converter {
 	public boolean isValid_GPS_Point(Point3D p) {
 		// x is latitude ( ----- ) in [-90°,90°]
 		// y is longitude ( | )  in [-180°,180°]
-		// z is Altitude in [-450,inf)
+		// z is Altitude in [-450,infinity)
 		double lat = p.x();
 		double lon = p.y();
 		double alt = p.z();
@@ -104,9 +107,9 @@ public class MyCoords implements coords_converter {
 	/** This Method convert Meter to Radian for Lat **/
 	private double MTR_x (double x) { return Math.asin(x/radius); }
 	/** This Method convert Meter to Radian for Lon **/
-	private double MTR_y (double y , double Lon_Norm) { return  Math.asin(y/(radius*Lon_Norm)); } //  Meter to Radian
+	private double MTR_y (double y , double Lon_Norm) { return  Math.asin(y/(radius*Lon_Norm)); }
 	/** This Method convert Meter to Degrees for Lat **/
-	private double MTD_x(double x) { return (RTD(MTR_x(x))); } // Degrees to Meter
+	private double MTD_x(double x) { return (RTD(MTR_x(x))); }
 	/** This Method convert Meter to Degrees for Lon **/
-	private double MTD_y(double y, double x) {return RTD(MTR_y(y,getLon_Norm(x)));} // Degrees to Meter
+	private double MTD_y(double y, double x) {return RTD(MTR_y(y,getLon_Norm(x)));}
 }

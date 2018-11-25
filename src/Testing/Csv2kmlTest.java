@@ -12,7 +12,5 @@ class Csv2kmlTest {
 		fail("./data/WigleWifi_20171201110209.csv  Alredy Exists!");
 		}
 		catch(Exception e) { } // All Good 
-		
 	}
-
 }

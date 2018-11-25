@@ -1,10 +1,13 @@
 package File_format;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Timestamp;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import Geom.Point3D;
 public class Csv2kml {
@@ -18,7 +21,9 @@ public class Csv2kml {
 	/* * * * * * * * * * * * * * Setters And Getters * * * * * * * * * * * * * * * */
 	public String getPath() { return path; }
 	public void setPath(String path) { Csv2kml.path = path; }
-
+	public static Timestamp getTimeStampFromString(String s)
+	{
+	}
 	/* * * * * * * * * * * * * * * * * * Convert * * * * * * * * * * * * * * * */
 	public static void Convert() throws Exception
 	{
@@ -72,8 +77,9 @@ public class Csv2kml {
 				+ "<description>"+"<![CDATA[BSSID: <b>" + MAC + "</b>"+"</description><styleUrl>#red</styleUrl>" + "\n"
 				+ "<description><![CDATA[BSSID: <b>" + MAC + "</b><br/>"
 				+ "Capabilities: <b>" + AuthMode + "</b><br/>" 
-				+ "Frequency: <b>" + "2462" + "</b><br/>"  // Need to Implement
-				+ "Timestamp: <b>" + FirstSeen + "</b><br/>"
+				+ "Frequency: <b>" + Channel + "</b><br/>" 
+				+ "Timestamp: <b>" + getTimeStampFromString(FirstSeen) + "</b><br/>"
+
 				+ "Date: <b>" + FirstSeen +"</b>]]></description><styleUrl>#red</styleUrl>" + "\n"
 				+ "<Point>" + "\n"
 				+ "<coordinates>" + point.y() + "," + point.x() + "," + point.z() + "</coordinates>" + "\n"
