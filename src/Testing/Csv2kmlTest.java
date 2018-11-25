@@ -11,6 +11,6 @@ class Csv2kmlTest {
 		Csv2kml kml_AlredyExists = new Csv2kml("./data/WigleWifi_20171201110209.csv");
 		fail("./data/WigleWifi_20171201110209.csv  Alredy Exists!");
 		}
-		catch(Exception e) { } // All Good 
+		catch(Exception e) {} // All Good 
 	}
 }

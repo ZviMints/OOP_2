@@ -1,8 +1,9 @@
 package Testing;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.*;
 import java.text.DecimalFormat;
-
 import org.junit.jupiter.api.Test;
+
 import Coords.MyCoords;
 import Geom.Point3D;
 class MyCoordsTest {
@@ -17,6 +18,8 @@ class MyCoordsTest {
 		 p0 = new Point3D(32.103315,35.209039,670);
 		 p1 = new Point3D(32.106352,35.205225,650);
 		 vec = new Point3D(337.69899206128815,-359.24920693881893,-20.0);
+		 Point3D N = new Point3D(90,0,0);
+		 if(coords.add(N, vec).x() == 90.003037) fail("There no such Point, alt is in [-90,90]!");	
 		 assertEquals(coords.add(p0, vec).toString(),p1.toString()); 	
 	}
 

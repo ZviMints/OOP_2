@@ -23,7 +23,10 @@ public class MyCoords implements coords_converter {
 		Point3D ans = new Point3D(gps.x() + x ,
 				gps.y() + y ,
 				gps.z() + local_vector_in_meter.z());
+		if(isValid_GPS_Point(ans))
 		return ans;
+		else
+			return new Point3D(0,0,0); // Need to Check that
 	}
 
 	@Override
