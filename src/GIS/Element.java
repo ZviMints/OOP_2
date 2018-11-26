@@ -15,6 +15,8 @@ public class Element implements GIS_element{
 		this.geo = geo;
 		this.info = data;
 	}
+	public Element() {
+	}
 	/* * * * * * * * * * * * * * * * * * getMapFromData * * * * * * * * * * * * * * * */
 	public TreeMap<String, String> getMap()
 	{
@@ -25,6 +27,14 @@ public class Element implements GIS_element{
 	{
 		return this.info;
 	}
+	
+	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
+
+	public String toString()
+	{
+		return this.getMap() + "";
+	}
+	
 	/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
 	@Override
 	public Geom_element getGeom() {

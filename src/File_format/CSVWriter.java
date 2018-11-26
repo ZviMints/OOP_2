@@ -12,30 +12,31 @@ public class CSVWriter {
 	public CSVWriter(CSVReader cr)
 	{
 		this.cr = cr;
+		layer = new Layer();
 	}
 	/* * * * * * * * * * * * * * * * * * MakeLayer * * * * * * * * * * * * * * * */
 	public Layer MakeLayer()
 	{
-		layer = new Layer();
 		Element element = null;
 		for(int i=2; i < cr.getRowsSize(); i++)
 		{
 			element = MakeElement(cr.getRowAtIndexI(i));
-			layer.set.add(element);
-		}
+			System.out.println(element);
+			layer.add(element);
+			}
+		System.err.println(layer);
 		return layer;
 	}
 	/* * * * * * * * * * * * * * * * * * MakeElement * * * * * * * * * * * * * * * */
 	private Element MakeElement(ArrayList<String> row)
 	{
-		Data info = null;
+		Data info = new Data();
 		ArrayList<String> header = cr.getHeader();
 		Geom_element geo = new Point3D(Double.parseDouble(row.get(6)) // Latitude
 				,Double.parseDouble(row.get(7)) // Longitude
 				,Double.parseDouble(row.get(8))); // Altitude
 		for(int i=0; i<cr.getColumnsSize();i++)
 		{
-			info = new Data();
 			info.getMap().put(header.get(i), row.get(i));
 		}
 		Element ans = new Element(geo,info);
