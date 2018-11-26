@@ -17,51 +17,60 @@ public class MyCoords implements coords_converter {
 	/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
 	@Override
 	public Point3D add(Point3D gps, Point3D local_vector_in_meter) {
-		if(!isValid_GPS_Point(gps)) return new Point3D(0,0,0); // Wrong input, will will return (0,0,0)
-		double x = MTD_x(local_vector_in_meter.x());
-		double y = MTD_y(local_vector_in_meter.y(),gps.x());
-		Point3D ans = new Point3D(gps.x() + x ,
-				gps.y() + y ,
-				gps.z() + local_vector_in_meter.z());
+		if(!isValid_GPS_Point(gps)) return null; // Wrong input, will return null
+		double x = MTD_x(local_vector_in_meter.x()) + gps.x();
+		double y = MTD_y(local_vector_in_meter.y(),gps.x()) + gps.y();
+		double z = gps.z() + local_vector_in_meter.z();
+		if( y > 180 ) y = (y + 180)%360 - 180; // Check if we get point after 180°
+		if ( y < -180 ) y = y + 360; // if we get point bellow -180°
+			Point3D ans = new Point3D(x,y,z);
 		if(isValid_GPS_Point(ans))
-		return ans;
+			return ans;
 		else
-			return new Point3D(0,0,0); // Need to Check that
+			return new Point3D(0,0,0);
 	}
 
 	@Override
 	public double distance3d(Point3D gps0, Point3D gps1) {
-		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) return 0; // Wrong input, will return 0
+		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) return -1; // Wrong input, will will return -1
 		double dx = gps1.x() - gps0.x();
 		double dy = gps1.y() - gps0.y();
-//		double dz  = gps1.z() - gps0.z(); // Error in xl
+		double dz  = gps1.z() - gps0.z();
 		double x_m = DTM_x(dx);
 		double y_m = DTM_y(dy,gps0.x()); 
-		return Math.sqrt(Math.pow(x_m, 2) + Math.pow(y_m, 2)); // Error in xl?  + Math.pow(dz, 2)
+		return Math.sqrt(Math.pow(x_m, 2) + Math.pow(y_m, 2) + Math.pow(dz, 2));
+	}
+
+	public double distance2d(Point3D gps0, Point3D gps1) {
+		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) return -1; // Wrong input, will will return -1
+		double dx = gps1.x() - gps0.x();
+		double dy = gps1.y() - gps0.y();
+		double x_m = DTM_x(dx);
+		double y_m = DTM_y(dy,gps0.x()); 
+		return Math.sqrt(Math.pow(x_m, 2) + Math.pow(y_m, 2));
 	}
 
 	@Override
 	public Point3D vector3D(Point3D gps0, Point3D gps1) {
-		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) return new Point3D(0,0,0); // Wrong input, will return (0,0,0)
+		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) return null; // Wrong input, will return null
 		double dx = gps1.x() - gps0.x();
 		double dy = gps1.y() - gps0.y();
 		double dz = gps1.z() - gps0.z();
 		return new Point3D(DTM_x(dx),
-				DTM_y(dy,gps0.x()), // Why Gps0, Need to check with Boaz.
+				DTM_y(dy,gps0.x()), 
 				dz);
 	}
 
 	@Override
 	public double[] azimuth_elevation_dist(Point3D gps0, Point3D gps1) {
-		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) return new double[3]; // Wrong input, will return [0,0,0]
+		if(!isValid_GPS_Point(gps0) || !isValid_GPS_Point(gps1)) return null; // Wrong input, will return null
 		double[] ans = new double[3]; // ans[0,1,2] = [azimuth,elevation,distance]
 		double x0 = gps0.x(), x1 = gps1.x(),
 				y0 = gps0.y(), y1 = gps1.y(), 
 				z0 = gps0.z(), z1 = gps1.z();
-		double distance  =  distance3d(gps0,gps1);
-	    double azimuth = azimuth(x0,y0,x1,y1);
-		double elevation = Math.toDegrees(Math.asin((z1-z0)/distance)); // its should not be that distance.
-		                                                               // need to check with Boaz. 
+		double distance  =  distance2d(gps0,gps1);
+		double azimuth = azimuth(x0,y0,x1,y1);
+		double elevation = Math.toDegrees(Math.asin((z1-z0)/distance)); 
 		ans[2] = distance;
 		ans[1] = elevation;
 		ans[0] = azimuth;
@@ -81,17 +90,17 @@ public class MyCoords implements coords_converter {
 	}
 	/* * * * * * * * * * * * * * * * * * Azimuth * * * * * * * * * * * * * * * */
 	public double azimuth(double lat,double lon,double lat2,double lon2){
-	    double teta1 = Math.toRadians(lat);
-	    double teta2 = Math.toRadians(lat2);
-	    double delta2 = Math.toRadians(lon2-lon);
-	    double y = Math.sin(delta2) * Math.cos(teta2);
-	    double x = Math.cos(teta1)*Math.sin(teta2) - Math.sin(teta1)*Math.cos(teta2)*Math.cos(delta2);
-	    double azimuth = Math.atan2(y,x);
-	    azimuth = Math.toDegrees(azimuth);
-	    azimuth = ((azimuth + 360) % 360); 
-	    return azimuth;
-	  }
-	
+		double teta1 = Math.toRadians(lat);
+		double teta2 = Math.toRadians(lat2);
+		double delta2 = Math.toRadians(lon2-lon);
+		double y = Math.sin(delta2) * Math.cos(teta2);
+		double x = Math.cos(teta1)*Math.sin(teta2) - Math.sin(teta1)*Math.cos(teta2)*Math.cos(delta2);
+		double azimuth = Math.atan2(y,x);
+		azimuth = Math.toDegrees(azimuth);
+		azimuth = ((azimuth + 360) % 360); 
+		return azimuth;
+	}
+
 	/* * * * * * * * * * * * * * * * * * Calculation * * * * * * * * * * * * * * * */
 	/** This Method get the Lon_Norm from double **/
 	private double getLon_Norm(double x) { return Math.cos(x * (PI/180)); }
