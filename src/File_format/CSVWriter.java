@@ -28,13 +28,14 @@ public class CSVWriter {
 	/* * * * * * * * * * * * * * * * * * MakeElement * * * * * * * * * * * * * * * */
 	private Element MakeElement(ArrayList<String> row)
 	{
+		Data info = null;
 		ArrayList<String> header = cr.getHeader();
-		Data info = new Data();
 		Geom_element geo = new Point3D(Double.parseDouble(row.get(6)) // Latitude
-				                       ,Double.parseDouble(row.get(7)) // Longitude
-				                       ,Double.parseDouble(row.get(8))); // Altitude
+				,Double.parseDouble(row.get(7)) // Longitude
+				,Double.parseDouble(row.get(8))); // Altitude
 		for(int i=0; i<cr.getColumnsSize();i++)
 		{
+			info = new Data();
 			info.getMap().put(header.get(i), row.get(i));
 		}
 		Element ans = new Element(geo,info);
