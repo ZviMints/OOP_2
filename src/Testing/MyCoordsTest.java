@@ -2,6 +2,8 @@ package Testing;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.*;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import Coords.MyCoords;
@@ -15,52 +17,52 @@ class MyCoordsTest {
 
 	@Test
 	void testAdd() {
-		 p0 = new Point3D(32.103315,35.209039,670);
-		 p1 = new Point3D(32.106352,35.205225,650);
-		 vec = new Point3D(337.69899206128815,-359.24920693881893,-20.0);
-		 assertEquals(coords.add(p0, vec).toString(),p1.toString()); 	
+		p0 = new Point3D(32.103315,35.209039,670);
+		p1 = new Point3D(32.106352,35.205225,650);
+		vec = new Point3D(337.69899206128815,-359.24920693881893,-20.0);
+		assertEquals(coords.add(p0, vec).toString(),p1.toString()); 	
 
-		 Point3D N = new Point3D(90,10,0);
-		 Point3D E = new Point3D(0,180,0);
+		Point3D N = new Point3D(90,10,0);
+		Point3D E = new Point3D(0,180,0);
 
-		 Point3D vec_N = new Point3D(10000,0,0);
-		 Point3D vec_E = new Point3D(0,1000,0);
-		 if(coords.add(N, vec_N).x() == 90.0899321975193) fail("Not such Point with Lat:90.0899321975193");
-		 if(coords.add(E, vec_E).y() == 180.00899321609612) fail("Not such Point with Lat:180.00899321609612");
+		Point3D vec_N = new Point3D(10000,0,0);
+		Point3D vec_E = new Point3D(0,1000,0);
+		if(coords.add(N, vec_N).x() == 90.0899321975193) fail("Not such Point with Lat:90.0899321975193");
+		if(coords.add(E, vec_E).y() == 180.00899321609612) fail("Not such Point with Lat:180.00899321609612");
 	}
 
 	@Test
 	void testDistance3d() {
-		 p0 = new Point3D(32.103315,35.209039,670);
-		 p1 = new Point3D(32.106352,35.205225,650);
-		 double actual = coords.distance3d(p0, p1);
-		 double expected =  493.4578016;
-		 assertEquals(expected,Double.parseDouble(df.format(actual)));
+		p0 = new Point3D(32.103315,35.209039,670);
+		p1 = new Point3D(32.106352,35.205225,650);
+		double actual = coords.distance3d(p0, p1);
+		double expected =  493.4578016;
+		assertEquals(expected,Double.parseDouble(df.format(actual)));
 	}
-	
+
 	@Test
 	void testDistance2d() {
-		 p0 = new Point3D(32.103315,35.209039,670);
-		 p1 = new Point3D(32.106352,35.205225,650);
-		 double actual = coords.distance2d(p0, p1);
-		 double expected =  493.0523318;
-		 assertEquals(expected,Double.parseDouble(df.format(actual)));
+		p0 = new Point3D(32.103315,35.209039,670);
+		p1 = new Point3D(32.106352,35.205225,650);
+		double actual = coords.distance2d(p0, p1);
+		double expected =  493.0523318;
+		assertEquals(expected,Double.parseDouble(df.format(actual)));
 	}
 
 	@Test
 	void testVector3D() {
-		 p0 = new Point3D(32.103315,35.209039,670);
-		 p1 = new Point3D(32.106352,35.205225,650);
-		 vec = coords.vector3D(p0, p1);
-		 assertEquals(coords.add(p0, vec).toString(),p1.toString()); 
-		 }
+		p0 = new Point3D(32.103315,35.209039,670);
+		p1 = new Point3D(32.106352,35.205225,650);
+		vec = coords.vector3D(p0, p1);
+		assertEquals(coords.add(p0, vec).toString(),p1.toString()); 
+	}
 
 	@Test
 	void testAzimuth_elevation_dist() {
-		 p0 = new Point3D(32.103315,35.209039,670);
-		 p1 = new Point3D(32.106352,35.205225,650);
-		 double[] ans = {313.23042032646896, -2.3247635173865278, 493.0523318324134};
-		 assertArrayEquals(ans, coords.azimuth_elevation_dist(p0, p1));
+		p0 = new Point3D(32.103315,35.209039,670);
+		p1 = new Point3D(32.106352,35.205225,650);
+		double[] ans = {313.23042032646896, -2.3247635173865278, 493.0523318324134};
+		assertArrayEquals(ans, coords.azimuth_elevation_dist(p0, p1));
 	}
 
 	@Test
@@ -70,7 +72,7 @@ class MyCoordsTest {
 		Point3D p1_wrong_y_1 = new Point3D(0,181,0);
 		Point3D p1_wrong_y_2 = new Point3D(0,-181,0);
 		Point3D p1_wrong_z = new Point3D(0,0,-500);
-		
+
 		Point3D p2_true_1 = new Point3D(-90,-180,-450);
 		Point3D p2_true_2 = new Point3D(90,180,Integer.MAX_VALUE);
 
