@@ -1,40 +1,31 @@
 package GIS;
-import java.util.TreeMap;
-
 import Coords.MyCoords;
 import Geom.Geom_element;
 import Geom.Point3D;
 
 public class Element implements GIS_element{
 	private Geom_element geo;
-	private Data info;
-	
+	private Data data;
+	/* * * * * * * * * * * * * * * * * * Getters * * * * * * * * * * * * * * * */
+	public Data getInfo()
+	{
+		return data;
+	}
 	/* * * * * * * * * * * * * * * * * * Constructors * * * * * * * * * * * * * * * */
 	public Element(Geom_element geo,Data data)
 	{
 		this.geo = geo;
-		this.info = data;
+		this.data = data;
 	}
-	public Element() {
-	}
-	/* * * * * * * * * * * * * * * * * * getMapFromData * * * * * * * * * * * * * * * */
-	public TreeMap<String, String> getMap()
-	{
-		return this.info.getMap();
-	}
-	/* * * * * * * * * * * * * * * * * * Setters * * * * * * * * * * * * * * * */
-	public Data getDataElement()
-	{
-		return this.info;
-	}
-	
-	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 
+	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{
-		return this.getMap() + "";
+		String ans = data.toString();
+		ans +=  "," + "Geom element" + ":" + geo;
+		return ans;
 	}
-	
+
 	/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
 	@Override
 	public Geom_element getGeom() {
@@ -43,7 +34,7 @@ public class Element implements GIS_element{
 
 	@Override
 	public Meta_data getData() {
-		return info;
+		return data;
 	}
 	@Override
 	public void translate(Point3D vec) {

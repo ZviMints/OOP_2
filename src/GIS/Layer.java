@@ -4,14 +4,21 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Layer implements GIS_layer{
+public class Layer implements GIS_layer {
 	public Set<GIS_element> set = new HashSet<GIS_element>();
-	///
+	private Meta_data data;
+
+	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{
-		return set + "";
+		String ans = null;
+		Iterator<GIS_element> it = set.iterator();
+		while(it.hasNext())
+			ans += it.next() + "\n";
+		return ans;
 	}
-	
+
+	/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
 	@Override
 	public boolean add(GIS_element e) {
 		return set.add(e);
@@ -81,7 +88,6 @@ public class Layer implements GIS_layer{
 
 	@Override
 	public Meta_data get_Meta_data() {
-		///////////////////////////////////////////// NEED TO IMPLEMENT
-		return null; 
+		return data; 
 	}
 }

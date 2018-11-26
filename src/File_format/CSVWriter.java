@@ -21,10 +21,8 @@ public class CSVWriter {
 		for(int i=2; i < cr.getRowsSize(); i++)
 		{
 			element = MakeElement(cr.getRowAtIndexI(i));
-			System.out.println(element);
 			layer.add(element);
-			}
-		System.err.println(layer);
+		}
 		return layer;
 	}
 	/* * * * * * * * * * * * * * * * * * MakeElement * * * * * * * * * * * * * * * */
@@ -35,9 +33,19 @@ public class CSVWriter {
 		Geom_element geo = new Point3D(Double.parseDouble(row.get(6)) // Latitude
 				,Double.parseDouble(row.get(7)) // Longitude
 				,Double.parseDouble(row.get(8))); // Altitude
-		for(int i=0; i<cr.getColumnsSize();i++)
+
+		for(int i=0; i < cr.getColumnsSize();i++)
 		{
-			info.getMap().put(header.get(i), row.get(i));
+			String s = header.get(i);
+			switch(s)
+			{
+			case "RSSI": info.setRSSI(row.get(i)); break;
+			case "FirstSeen": info.setFirstSeen(row.get(i)); break;
+			case "Channel": info.setChannel(row.get(i)); break;
+			case "SSID": info.setSSID(row.get(i));  break;
+			case "MAC": info.setMAC(row.get(i)); break;
+			case "AuthMode": info.setAuthMode(row.get(i)); break;
+			}
 		}
 		Element ans = new Element(geo,info);
 		return ans;

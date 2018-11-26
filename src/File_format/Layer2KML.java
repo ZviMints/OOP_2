@@ -96,14 +96,13 @@ public class Layer2KML {
 			Element element = (Element) it.next();
 			Point3D point = (Point3D) element.getGeom();
 			KML_BODY += CSV_TO_KML(
-					element.getMap().get("MAC"),
-					element.getMap().get("SSID"),
-					element.getMap().get("AuthMode"),
-					element.getMap().get("FirstSeen"),
-					getFrequency(element.getMap().get("Channel")),
-					element.getMap().get("RSSI"),point);
-//					element.getData().getMap().get("AccuracyMeters"),
-//					element.getData().getMap().get("Type")
+					element.getInfo().getMAC(),
+					element.getInfo().getSSID(),
+					element.getInfo().getAuthMode(),
+					element.getInfo().getFirstSeen(),
+					getFrequency(element.getInfo().getChannel()),
+					element.getInfo().getRSSI(),
+					point);
 		}
 		String tail = "</Folder>" + "\n" 
 				+ "</Document></kml>";
@@ -130,16 +129,11 @@ public class Layer2KML {
 	public void MakeFile() throws Exception
 	{
 		String filename = path.replaceAll(".csv", ".kml");
-		boolean fileExists = new File(filename).exists();
-		if(fileExists) throw new Exception(filename + " Alredy Exists!");
-		else
-		{
-			PrintWriter pw = new PrintWriter(new File(filename));
-			StringBuilder sb = new StringBuilder();	
-			sb.append(ans);
-			pw.write(sb.toString());
-			pw.close();
-		}
+		PrintWriter pw = new PrintWriter(new File(filename));
+		StringBuilder sb = new StringBuilder();	
+		sb.append(ans);
+		pw.write(sb.toString());
+		pw.close();
 	}
 	/* * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
