@@ -27,7 +27,7 @@ public class MyCoords implements coords_converter {
 		if(isValid_GPS_Point(ans))
 			return ans;
 		else
-			return new Point3D(0,0,0);
+			return null;
 	}
 
 	@Override
