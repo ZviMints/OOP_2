@@ -27,7 +27,7 @@ public class Project implements GIS_project {
 		while(it.hasNext())
 		{
 			Layer layer = (Layer) it.next();
-			ans += "  " + layer + "****************************************************************************"
+			ans += layer + "    "+ "****************************************************************************"
 					     + "\n";
 		}
 		return ans;
