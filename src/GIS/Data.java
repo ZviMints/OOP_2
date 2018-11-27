@@ -5,6 +5,9 @@
  * @author Tzvi Mints and Or Abuhazira
  */
 package GIS;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 import Geom.Point3D;
 
 public class Data implements Meta_data {
@@ -19,8 +22,18 @@ public class Data implements Meta_data {
 	/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
 	@Override
 	public long getUTC(){
-		long milliseconds = -1;
-		return milliseconds; 
+		long Time = -1;
+		try {
+		String time_string = this.getFirstSeen();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		java.util.Date dateStr = dateFormat.parse(time_string);
+		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+		String formattedDate = dateFormat.format(dateStr);
+		Time = dateFormat.parse(formattedDate).getTime();
+		Time = Time / 1000;
+		}
+		catch(Exception e) { e.getStackTrace(); }
+		return Time;
 	}
 
 	@Override

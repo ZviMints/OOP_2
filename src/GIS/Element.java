@@ -31,7 +31,7 @@ public class Element implements GIS_element{
 	/**
 	 * This method is responsible return all the information
 	 * that data have, for example SSID,Channel and more.
-	 * @return data
+	 * @return Data
 	 */
 	public Data getInfo()
 	{

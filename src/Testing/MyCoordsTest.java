@@ -27,7 +27,13 @@ class MyCoordsTest {
 
 		Point3D vec_N = new Point3D(10000,0,0);
 		Point3D vec_E = new Point3D(0,1000,0);
+		try {
 		if(coords.add(N, vec_N).x() == 90.0899321975193) fail("Not such Point with Lat:90.0899321975193");
+		}
+		catch(Exception e)
+		{
+			// All Good. no such point == null.
+		}
 		if(coords.add(E, vec_E).y() == 180.00899321609612) fail("Not such Point with Lat:180.00899321609612");
 	}
 

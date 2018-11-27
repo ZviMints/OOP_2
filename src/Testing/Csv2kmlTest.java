@@ -4,10 +4,11 @@ import java.util.Iterator;
 import org.junit.jupiter.api.Test;
 import File_format.Csv2kml;
 import GIS.GIS_element;
+import Geom.Point3D;
 class Csv2kmlTest {
 
-	
-	
+
+
 	@Test
 	void testFileAlredyExists() throws Exception {	
 		Csv2kml kml = new Csv2kml("./data/WigleWifi_20171201110209.csv");
@@ -16,7 +17,16 @@ class Csv2kmlTest {
 		{
 			GIS_element element = layer.next();
 			if(element == null) fail("No Element!");
-//			System.out.println(element);
+			// ***** Check Print ***** //
+			System.out.println(element);
+			// ***** Check UTC ***** //
+			System.out.println("UTC Time:" + element.getData().getUTC());
+			// ***** Check Translate ***** //
+			Point3D vec = new Point3D(10,10,10);
+			System.out.print("Before:" + element.getGeom() + " | ");
+			element.translate(vec);
+			System.out.print("After:" + element.getGeom() + "\n");
+
 		}
 	}
 }
