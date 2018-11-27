@@ -1,20 +1,39 @@
-package GIS;
+/**
+ * This Class represent Project that is a Set of Layers
+ * @author Tzvi Mints and Or Abuhazira
+ */
 
+package GIS;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 public class Project implements GIS_project {
-	public Set<GIS_layer> set = new HashSet<GIS_layer>();
+	private Set<GIS_layer> set = new HashSet<GIS_layer>();
 	private Meta_data data;
 	private String name = "-->";
 	
 	
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
+	/**
+	 * This method returns the name of the current Project
+	 * @return String that represent the name of the Project
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * This method returns the Set of  GIS_layer,
+	 * Each project is set of layers
+	 * @return returns the Set of  GIS_layer
+	 */
+	public Set<GIS_layer> getSet() {
+		return set;
+	}
+	/**
+	 * This method is responsible to Update the current Project name
+	 */
 	public void updateName(String name) {
 		this.name += name + ",";
 	}
@@ -27,7 +46,12 @@ public class Project implements GIS_project {
 		while(it.hasNext())
 		{
 			Layer layer = (Layer) it.next();
-			ans += layer + "    "+ "****************************************************************************"
+			ans += layer + "    "+ "*************"
+					             + "*************"
+					             + "*************"
+					             + "*************"
+					             + "*************"
+					             + "*************"
 					     + "\n";
 		}
 		return ans;

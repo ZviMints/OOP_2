@@ -1,7 +1,14 @@
+/**
+ * This Class represent Data that implements Meta_data
+ * each Data is a Line information,
+ * each Data have RSSI,FirstSeen,Channel,SSID,Mac,Authmode.
+ * @author Tzvi Mints and Or Abuhazira
+ */
 package GIS;
 import Geom.Point3D;
 
 public class Data implements Meta_data {
+	/* * * * * * * * * * * * * *  Private Strings * * * * * * * * * * * * * * * */
 	private String RSSI;
 	private String FirstSeen;
 	private String Channel;
@@ -32,7 +39,7 @@ public class Data implements Meta_data {
 	public Point3D get_Orientation() {
 		return null; // IGNORE!
 	}
-	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
+	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */ 
 	public String getRSSI() { return RSSI; }
 	public void setRSSI(String rSSI) { RSSI = rSSI; }
 	public String getFirstSeen() { return FirstSeen; }

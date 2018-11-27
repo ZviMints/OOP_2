@@ -1,3 +1,8 @@
+/**
+ * This class is responsible to init Layer that contains Elements
+ * from CSV file
+ * @author Tzvi Mints and Or Abuhazira
+ */
 package File_format;
 import java.util.ArrayList;
 import GIS.Data;
@@ -15,6 +20,10 @@ public class CSVWriter {
 		layer = new Layer();
 	}
 	/* * * * * * * * * * * * * * * * * * MakeLayer * * * * * * * * * * * * * * * */
+	/**
+	 * This method is responsible to Make Layer
+	 * @return Layer that represent the CSV file
+	 */
 	public Layer MakeLayer()
 	{
 		Element element = null;
@@ -26,6 +35,10 @@ public class CSVWriter {
 		return layer;
 	}
 	/* * * * * * * * * * * * * * * * * * MakeElement * * * * * * * * * * * * * * * */
+	/**
+	 * This method is responsible to Make Element
+	 * @return Element that represent the CSV file line
+	 */
 	private Element MakeElement(ArrayList<String> row)
 	{
 		Data info = new Data();

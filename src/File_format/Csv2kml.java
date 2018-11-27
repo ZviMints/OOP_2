@@ -1,5 +1,6 @@
 /**
  * This Class Transfer CSV file to KML File that Google Earth can read
+ * on the way we init Layer that contains Element.
  * @author Tzvi Mints and Or Abuhazira
  */
 package File_format;

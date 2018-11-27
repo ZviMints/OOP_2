@@ -1,3 +1,7 @@
+/**
+ * This Class represent Layer that is a Set of Elements
+ * @author Tzvi Mints and Or Abuhazira
+ */
 package GIS;
 import java.util.Collection;
 import java.util.HashSet;
@@ -5,14 +9,29 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Layer implements GIS_layer {
-	public Set<GIS_element> set = new HashSet<GIS_element>();
+	private Set<GIS_element> set = new HashSet<GIS_element>();
 	private Meta_data data;
 	public String name = "-->";
 
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
+	/**
+	 * This method returns the name of the current Layer
+	 * @return String that represent the name of the Layer
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * This method returns the Set of  GIS_element,
+	 * Each project is set of elements
+	 * @return returns the Set of  GIS_element
+	 */
+	public Set<GIS_element> getSet() {
+		return set;
+	}
+	/**
+	 * This method is responsible to Update the current Layer name
+	 */
 	public void updateName(String name) {
 		this.name += name;
 	}
@@ -20,7 +39,7 @@ public class Layer implements GIS_layer {
 	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{
-		String ans = "Layer " + this.getName() + ":\n";
+		String ans = "  Layer " + this.getName() + ":\n";
 		Iterator<GIS_element> it = set.iterator();
 		while(it.hasNext())
 			ans += "    " + it.next() + "\n";

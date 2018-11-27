@@ -1,3 +1,7 @@
+/**
+ * This Class is responsible to get Layer and convert it into KML
+ * @author Tzvi Mints and Or Abuhazira
+ */
 package File_format;
 import java.io.File;
 import java.io.PrintWriter;
@@ -16,6 +20,11 @@ public class Layer2KML {
 	private Layer layer;
 	private String ans = "";
 	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
+	/**
+	 * Constructor
+	 * @param layer is the input Layer
+	 * @param path is the path to put the KML file
+	 */
 	public Layer2KML(Layer layer,String path)
 	{
 		this.layer = layer;
@@ -73,6 +82,10 @@ public class Layer2KML {
 		return "No Frequency";
 	}
 	/* * * * * * * * * * * * * * * * * * Convert * * * * * * * * * * * * * * * */
+	/**
+	 * This method is responsible to Convert Layer to KML.
+	 * @throws Exception
+	 */
 	public void Convert() throws Exception
 	{
 		String header = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + 
@@ -89,7 +102,7 @@ public class Layer2KML {
 				+ "</Icon></IconStyle></Style>\n"
 				+ "<Folder><name>Wifi Networks</name>\n";
 		String KML_BODY = "";
-		Iterator<GIS_element> it = layer.set.iterator();
+		Iterator<GIS_element> it = layer.getSet().iterator();
 		while(it.hasNext())
 		{
 			Element element = (Element) it.next();
@@ -109,6 +122,17 @@ public class Layer2KML {
 		MakeFile();
 	}
 	/* * * * * * * * * * * * * * * * * * CSV To KML Convert * * * * * * * * * * * * * * * */
+	/**
+	 * This Method is Responsible to convert From CSV Line to KML line by format
+	 * @param MAC is the input MAC from csv file
+	 * @param SSID is the input SSID from csv file
+	 * @param AuthMode is the input AuthMode from csv file
+	 * @param FirstSeen is the input FirstSeen from csv file
+	 * @param Frequency is the input Frequency from csv file
+	 * @param RSSI is the input RSSI from csv file
+	 * @param point is the input 3 coordinates ( lat, lon , alt ) from csv file
+	 * @return
+	 */
 	public String CSV_TO_KML(String MAC, String SSID, String AuthMode, String FirstSeen, String Frequency, String RSSI, Point3D point)
 	{	
 		String body ="<Placemark>" + "\n"
@@ -125,6 +149,10 @@ public class Layer2KML {
 		return body;
 	}
 	/* * * * * * * * * * * * * * * * * * File Writer * * * * * * * * * * * * * * * */
+	/**
+	 * This method responsible to Make the KML file
+	 * @throws Exception
+	 */
 	public void MakeFile() throws Exception
 	{
 		String filename = path.replaceAll(".csv", ".kml");

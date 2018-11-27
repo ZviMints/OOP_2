@@ -1,3 +1,9 @@
+/**
+ * This Class represent Element that implements GIS_element
+ * each Element is a Line,
+ * each Element have Geom Element, Data, and Name.
+ * @author Tzvi Mints and Or Abuhazira
+ */
 package GIS;
 import Coords.MyCoords;
 import Geom.Geom_element;
@@ -9,13 +15,24 @@ public class Element implements GIS_element{
 	private String name = "";
 
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
+	/**
+	 * This method returns the name of the current Element
+	 * @return String that represent the name of the Element
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * This method is responsible to Update the current Element name
+	 */
 	public void updateName(String name) {
 		this.name += name + ",";
 	}
-	
+	/**
+	 * This method is responsible return all the information
+	 * that data have, for example SSID,Channel and more.
+	 * @return data
+	 */
 	public Data getInfo()
 	{
 		return data;

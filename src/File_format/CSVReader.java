@@ -1,3 +1,10 @@
+/**
+ * This class is responsible to make Dynamic matrix[][]
+ * which is row contain Arraylist that represent line in csv
+ * the number of rows is the number of csv file lines.
+ * we can take Parameter from the matix in O(1)
+ * @author Tzvi Mints and Or Abuhazira
+ */
 package File_format;
 import java.io.BufferedReader;
 import java.io.File;
