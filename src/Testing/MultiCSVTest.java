@@ -20,11 +20,11 @@ class MultiCSVTest {
 		boolean fileExists = new File("./data/CheckReq/WigleWifi_20171201110209.kml").exists();
 		if(!fileExists) fail("MultiCSV not Reqursive");
 		String ans = mc.getProject().toString();
+//		System.out.println(ans);  // Print all Project
 		if(ans.isEmpty()) fail("No Project!");
 		
 		
 		Set<GIS_layer> projectSet = mc.getProject().getSet();
-//		System.out.println(projectSet); // Print all Project
 		Iterator<GIS_layer> it_project  = projectSet.iterator();
 		while(it_project.hasNext())
 		{

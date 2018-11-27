@@ -18,19 +18,21 @@ public class Data implements Meta_data {
 	private String SSID;
 	private String MAC;
 	private String AuthMode;
+	// Color of the current Data //
+	private String Color;
 
 	/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
 	@Override
 	public long getUTC(){
 		long Time = -1;
 		try {
-		String time_string = this.getFirstSeen();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		java.util.Date dateStr = dateFormat.parse(time_string);
-		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-		String formattedDate = dateFormat.format(dateStr);
-		Time = dateFormat.parse(formattedDate).getTime();
-		Time = Time / 1000;
+			String time_string = this.getFirstSeen();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			java.util.Date dateStr = dateFormat.parse(time_string);
+			dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+			String formattedDate = dateFormat.format(dateStr);
+			Time = dateFormat.parse(formattedDate).getTime();
+			Time = Time / 1000;
 		}
 		catch(Exception e) { e.getStackTrace(); }
 		return Time;
@@ -40,17 +42,17 @@ public class Data implements Meta_data {
 	public String toString() {
 		String ans = "";
 		ans += 	"RSSI" + ":" + getRSSI() + ","
-		        +"FirstSeen" + ":" + getFirstSeen() + ","
-		        +"Channel" + ":" + getChannel() + ","
-		        +"SSID" + ":" + getSSID() + ","
-		        +"MAC" + ":" + getMAC() + ","
-		        +"AuthMode" + ":" + getAuthMode();
-	 return ans;
+				+"FirstSeen" + ":" + getFirstSeen() + ","
+				+"Channel" + ":" + getChannel() + ","
+				+"SSID" + ":" + getSSID() + ","
+				+"MAC" + ":" + getMAC() + ","
+				+"AuthMode" + ":" + getAuthMode();
+		return ans;
 	}
 
 	@Override
 	public Point3D get_Orientation() {
-		return null; // IGNORE!
+		return null; // Boaz said to IGNORE!
 	}
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */ 
 	public String getRSSI() { return RSSI; }
@@ -65,5 +67,13 @@ public class Data implements Meta_data {
 	public void setMAC(String mAC) { MAC = mAC;}
 	public String getAuthMode() { return AuthMode; }
 	public void setAuthMode(String authMode) { AuthMode = authMode; }
+	public void setColor(String Color) { this.Color = Color; }
+	public String getColor() {
+		if(Double.parseDouble(this.getRSSI()) < - 90)
+			this.setColor("green");
+		else
+			this.setColor("red");
+		return Color; 
+	}
 
 }

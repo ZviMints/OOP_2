@@ -114,7 +114,8 @@ public class Layer2KML {
 					element.getInfo().getFirstSeen(),
 					getFrequency(element.getInfo().getChannel()),
 					element.getInfo().getRSSI(),
-					point);
+					point,
+					element.getInfo().getColor());
 		}
 		String tail = "</Folder>" + "\n" 
 				+ "</Document></kml>";
@@ -133,7 +134,7 @@ public class Layer2KML {
 	 * @param point is the input 3 coordinates ( lat, lon , alt ) from csv file
 	 * @return
 	 */
-	public String CSV_TO_KML(String MAC, String SSID, String AuthMode, String FirstSeen, String Frequency, String RSSI, Point3D point)
+	public String CSV_TO_KML(String MAC, String SSID, String AuthMode, String FirstSeen, String Frequency, String RSSI, Point3D point, String Color)
 	{	
 		String body ="<Placemark>" + "\n"
 				+ "<name>"+ "<![CDATA[" + SSID +"]]>"+"</name>" + "\n"
@@ -141,7 +142,7 @@ public class Layer2KML {
 				+ "Capabilities: <b>" + AuthMode + "</b><br/>" 
 				+ "Frequency: <b>" + Frequency + "</b><br/>" 
 				+ "Timestamp: <b>" + getTimeStampFromString(FirstSeen) + "</b><br/>"
-				+ "Date: <b>" + FirstSeen +"</b>]]></description><styleUrl>#red</styleUrl>" + "\n"
+				+ "Date: <b>" + FirstSeen +"</b>]]></description><styleUrl>#"+Color+"</styleUrl>" + "\n"
 				+ "<Point>" + "\n"
 				+ "<coordinates>" + point.y() + "," + point.x() + "," + point.z() + "</coordinates>" + "\n"
 				+ "</Point>" + "\n"
