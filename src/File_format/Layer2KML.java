@@ -6,22 +6,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.TimeZone;
-
-import GIS.Data;
 import GIS.Element;
 import GIS.GIS_element;
 import GIS.Layer;
 import Geom.Point3D;
 
 public class Layer2KML {
-	private String path = null;
-	private Layer layer = null;
+	private String path;
+	private Layer layer;
 	private String ans = "";
 	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
 	public Layer2KML(Layer layer,String path)
 	{
 		this.layer = layer;
 		this.path = path;
+		this.layer.updateName(path); // Update the name of the Layer
 		try {
 			Convert();
 		} catch (Exception e) {

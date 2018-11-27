@@ -14,11 +14,11 @@ public class MultiCSV {
 	public MultiCSV(String path) throws IOException
 	{
 		MultiWriter(path);
-		project = new Project();
 	}
 	
 	/* * * * * * * * * * * * * * * * * * Methods * * * * * * * * * * * * * * * */
 	private void MultiWriter(String path) throws IOException {
+		project = new Project();
 		File root = new File(path);
 		File[] list = root.listFiles();
 
@@ -34,6 +34,7 @@ public class MultiCSV {
 				{
 					try { 
 						Csv2kml kml = new Csv2kml(f.getAbsolutePath()); 
+						project.updateName(f.getAbsolutePath()); // Update Name
 						project.add(kml.getLayer());
 					} 
 					catch (Exception e) {} 

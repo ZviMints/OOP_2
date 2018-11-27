@@ -6,7 +6,16 @@ import Geom.Point3D;
 public class Element implements GIS_element{
 	private Geom_element geo;
 	private Data data;
-	/* * * * * * * * * * * * * * * * * * Getters * * * * * * * * * * * * * * * */
+	private String name = "";
+
+	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
+	public String getName() {
+		return name;
+	}
+	public void updateName(String name) {
+		this.name += name + ",";
+	}
+	
 	public Data getInfo()
 	{
 		return data;
@@ -21,7 +30,8 @@ public class Element implements GIS_element{
 	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{
-		String ans = data.toString();
+		String ans = "Element:" + this.getName() + "--> ";
+		ans += data.toString();
 		ans +=  "," + "Geom element" + ":" + geo;
 		return ans;
 	}

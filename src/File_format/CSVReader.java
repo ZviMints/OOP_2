@@ -19,6 +19,10 @@ public class CSVReader {
 		}
 	}
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
+	public String getPath() {
+		return path;
+	}
+	
 	public void setPath(String path) { 
 		CSVReader.path = path; 
 	}
