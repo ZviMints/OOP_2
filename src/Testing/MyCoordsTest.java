@@ -1,8 +1,11 @@
+/**
+ * This Test Class Testing MyCoords
+ * @author Tzvi Mints and Or Abuhazira
+ */
 package Testing;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.*;
 import java.text.DecimalFormat;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -67,7 +70,7 @@ class MyCoordsTest {
 	void testAzimuth_elevation_dist() {
 		p0 = new Point3D(32.103315,35.209039,670);
 		p1 = new Point3D(32.106352,35.205225,650);
-		double[] ans = {313.23042032646896, -2.3247635173865278, 493.0523318324134};
+		double[] ans = {313.23042032646896, -2.322852232927616, 493.45780156501763};
 		assertArrayEquals(ans, coords.azimuth_elevation_dist(p0, p1));
 	}
 

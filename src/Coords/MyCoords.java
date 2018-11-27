@@ -68,7 +68,7 @@ public class MyCoords implements coords_converter {
 		double x0 = gps0.x(), x1 = gps1.x(),
 				y0 = gps0.y(), y1 = gps1.y(), 
 				z0 = gps0.z(), z1 = gps1.z();
-		double distance  =  distance2d(gps0,gps1); // ** Notice!: We Neglecting the altitude parameter
+		double distance  =  distance3d(gps0,gps1); 
 		double azimuth = azimuth(x0,y0,x1,y1); // ** Notice!: We Neglecting the altitude parameter
 		double elevation = Math.toDegrees(Math.asin((z1-z0)/distance)); 
 		ans[2] = distance;

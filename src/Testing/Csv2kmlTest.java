@@ -1,3 +1,7 @@
+/**
+ * This Test Class Testing Csv2Kml
+ * @author Tzvi Mints and Or Abuhazira
+ */
 package Testing;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Iterator;
@@ -6,9 +10,6 @@ import File_format.Csv2kml;
 import GIS.GIS_element;
 import Geom.Point3D;
 class Csv2kmlTest {
-
-
-
 	@Test
 	void testFileAlredyExists() throws Exception {	
 		Csv2kml kml = new Csv2kml("./data/WigleWifi_20171201110209.csv");
