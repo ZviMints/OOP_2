@@ -86,7 +86,7 @@ Project Constructor get a String that represent path to Folder and make a Layers
 
 <h1>Junit Testing</h1>
 The Testing package is include the next Classes:
-<br><img src="./img/Testing.jpg"><br>
+<br><img src="./img/Testing.png"><br>
 <list>
 <li>Csv2kml Junit Test: Test CSV2kml class</li>
 <li>MultiCSV Junit Test: Test MultiCSV class</li>
