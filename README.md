@@ -11,7 +11,7 @@ This project can convert CSV files into Objects such as project,layer, and eleme
 in Addition we can represent any point in 3D space and perform vector operations on it and more.
 The program includes the next packages:
 <br>
-<img src="./img/Packages.jpg">
+<img src="./img/Packages.jpg" width="250px" height="310px">
 
 <br>
 <h1>Algorithms</h1>
@@ -55,9 +55,9 @@ The Geom package is include the next Classes:
 <br>
 <h1>GIS</h1>
 The GIS package is include the next Classes:
-<br><img src="./img/GIS.jpg"><br>
+<br><img src="./img/GIS.jpg" width="250px" height="600px"><br>
 <h1>GIS Class Diagram:</h1>
-<br><img src="./img/diagram.jpg"  width="800px" height="410px"><br>
+<br><img src="./img/diagram.jpg"  width="680px" height="410px"><br>
 <list>
 <li>Meta_data:  an interface that represent data about point</li>
 <li>Data: class that implements Meta_data, have information about a Point</li>
@@ -86,7 +86,7 @@ Project Constructor get a String that represent path to Folder and make a Layers
 
 <h1>Junit Testing</h1>
 The Testing package is include the next Classes:
-<br><img src="./img/Testing.png"><br>
+<br><img src="./img/Testing.png" width="200px" height="250px"><br>
 <list>
 <li>Csv2kml Junit Test: Test CSV2kml class</li>
 <li>MultiCSV Junit Test: Test MultiCSV class</li>
