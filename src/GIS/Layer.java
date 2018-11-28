@@ -8,7 +8,7 @@ import File_format.*;
 
 public class Layer implements GIS_layer {
 	private Set<GIS_element> set;
-	private Meta_data data; // We can insert data here. for now we did not enter any data.
+	private MetaLayer data;
 	public String LayerName;
 
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
@@ -51,17 +51,22 @@ public class Layer implements GIS_layer {
 			Element element = new Element(cr.getRowAtIndexI(i),cr.getHeader(),cr.getColumnsSize());
 			add(element);
 		}
+		// ************ initialize Layer Data  ************ //
+		data = new MetaLayer();
 	}
 	public Layer() {
 		// ************ initialize Set ************ //
 		set = new HashSet<GIS_element>();
 		// ************ initialize Layer name ************ //
 		LayerName = new String();
+		// ************ initialize Layer Data  ************ //
+		data = new MetaLayer();
+		
 	}
 	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{
-		String ans = "  Layer ---> " + this.getName() + ":\n";
+		String ans = "  Layer ---> " + this.getName() + ", Created at:" + data.getUTC() +":\n";
 		Iterator<GIS_element> it = set.iterator();
 		while(it.hasNext())
 			ans += "    " + it.next() + "\n";

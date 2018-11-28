@@ -12,7 +12,7 @@ import Geom.Point3D;
 
 public class Element implements GIS_element{
 	private Geom_element geo;
-	private Data data;
+	private MetaElement metaElement;
 	private String name;
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
 	/**
@@ -33,9 +33,9 @@ public class Element implements GIS_element{
 	 * that data have, for example SSID,Channel and more.
 	 * @return Data
 	 */
-	public Data getInfo()
+	public MetaElement getInfo()
 	{
-		return data;
+		return metaElement;
 	}
 	/* * * * * * * * * * * * * * * * * * Constructors * * * * * * * * * * * * * * * */
 	public Element(ArrayList<String> row, ArrayList<String> header, int ColumnsSize) { 
@@ -45,19 +45,19 @@ public class Element implements GIS_element{
 				         ,Double.parseDouble(row.get(8))); // Altitude
 		// ************ initialize String ************ //
 		name = new String();
-		// ************ initialize Data ************ //
-		data = new Data();
+		// ************ initialize Meta Element ************ //
+		metaElement = new MetaElement();
 		for(int i=0; i < ColumnsSize; i++)
 		{
 			String s = header.get(i);
 			switch(s)
 			{
-			case "RSSI": data.setRSSI(row.get(i)); break;
-			case "FirstSeen": data.setFirstSeen(row.get(i)); break;
-			case "Channel": data.setChannel(row.get(i)); break;
-			case "SSID": data.setSSID(row.get(i));  break;
-			case "MAC": data.setMAC(row.get(i)); break;
-			case "AuthMode": data.setAuthMode(row.get(i)); break;
+			case "RSSI": metaElement.setRSSI(row.get(i)); break;
+			case "FirstSeen": metaElement.setFirstSeen(row.get(i)); break;
+			case "Channel": metaElement.setChannel(row.get(i)); break;
+			case "SSID": metaElement.setSSID(row.get(i));  break;
+			case "MAC": metaElement.setMAC(row.get(i)); break;
+			case "AuthMode": metaElement.setAuthMode(row.get(i)); break;
 			}
 		}
 	}
@@ -65,7 +65,7 @@ public class Element implements GIS_element{
 	public String toString()
 	{
 		String ans = "Element:" + this.getName() + "--> ";
-		ans += data.toString();
+		ans += metaElement.toString();
 		ans +=  "," + "Geom element" + ":" + geo;
 		return ans;
 	}
@@ -77,7 +77,7 @@ public class Element implements GIS_element{
 
 	@Override
 	public Meta_data getData() {
-		return data;
+		return metaElement;
 	}
 	@Override
 	public void translate(Point3D vec) {

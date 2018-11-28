@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Project implements GIS_project {
 	private Set<GIS_layer> set;
-	private Meta_data data; // We can insert data here. for now we did not enter any data.
+	private MetaProject data; 
 	private String ProjectName;
 
 
@@ -45,6 +45,9 @@ public class Project implements GIS_project {
 		set = new HashSet<GIS_layer>();
 		// ************ initialize name ************ //
 		ProjectName = new String();
+		// ************ initialize Meta Data  ************ //
+		data = new MetaProject();
+		
 		// ************ initialize Set of Layers ************ //
 		try {
 			RecursiveSearch(path);
@@ -57,6 +60,8 @@ public class Project implements GIS_project {
 		set = new HashSet<GIS_layer>();
 		// ************ initialize name ************ //
 		ProjectName = new String();
+		// ************ initialize Project Data  ************ //
+		data = new MetaProject();
 	}
 	/* * * * * * * * * * * * * * * * * * RecursiveSearch * * * * * * * * * * * * * * * */
 	private void RecursiveSearch(String path) throws IOException {

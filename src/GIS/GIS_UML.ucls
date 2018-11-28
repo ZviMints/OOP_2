@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="GIS.Data" project="Ex2" file="/Ex2/src/GIS/Data.java" binary="false" 
+  <class id="1" language="java" name="GIS.MetaElement" project="Ex2" file="/Ex2/src/GIS/MetaElement.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="410" width="225" x="55" y="44"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -39,8 +39,12 @@
   </interface>  
   <association id="5">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="6" name="data"/>      
-      <multiplicity id="7" minimum="0" maximum="1"/>    
+      <attribute id="6" name="data">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="7" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

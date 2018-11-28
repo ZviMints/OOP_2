@@ -10,7 +10,7 @@ import java.util.TimeZone;
 
 import Geom.Point3D;
 
-public class Data implements Meta_data {
+public class MetaElement implements Meta_data {
 	/* * * * * * * * * * * * * *  Private Strings * * * * * * * * * * * * * * * */
 	private String RSSI;
 	private String FirstSeen;
