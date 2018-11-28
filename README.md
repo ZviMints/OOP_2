@@ -3,7 +3,10 @@
  <br>
  in the Department of Computer Science, 2018
 <h3>Project site: <a href="https://zvimints.github.io/OOP_2/">https://zvimints.github.io/OOP_2/</a></h3>
-<h1>About the program</h1>
+<h1>Hierarchy:</h1>
+<img src="./img/Class_Hierarchy.jpg"><br>
+
+<h1>About the project</h1>
 This project can convert CSV files into Objects such as project,layer, and elements.
 in Addition we can represent any point in 3D space and perform vector operations on it and more.
 The program includes the next packages:
@@ -35,7 +38,7 @@ The File_format package is include the next Classes:
 <li>CSV2KML:  get .CSV file as input, and transform it into a .KML file</li>
 <li>CSVToMatrix: get .CSV file as input, and transform it into a Matrix, we can take every cell in .CSV file in O(1)</li>
 <li>MatrixToLayer: gets Matrix that represent .CSV file and convert it into Layer, each Layer contain Elements that  represent a line in Matrix</li>
-<li>Layer2KML: gets Layer that represent .CSV file and convert it into valid .KML file<li>
+<li>Layer2KML: gets Layer that represent .CSV file and convert it into valid .KML file</li>
 <li>Project2KML: gets Project that represent a Set of Layers and make a .KML file that represent all layers that are in the Set</li>
 </list>
 
