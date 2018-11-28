@@ -3,15 +3,13 @@
  * @author Tzvi Mints and Or Abuhazira
  */
 package GIS;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
+import File_format.*;
 
 public class Layer implements GIS_layer {
-	private Set<GIS_element> set = new HashSet<GIS_element>();
+	private Set<GIS_element> set;
 	private Meta_data data; // We can insert data here. for now we did not enter any data.
-	public String name = "-->";
+	public String LayerName;
 
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
 	/**
@@ -19,7 +17,7 @@ public class Layer implements GIS_layer {
 	 * @return String that represent the name of the Layer
 	 */
 	public String getName() {
-		return name;
+		return LayerName;
 	}
 	/**
 	 * This method returns the Set of  GIS_element,
@@ -33,13 +31,37 @@ public class Layer implements GIS_layer {
 	 * This method is responsible to Update the current Layer name
 	 */
 	public void updateName(String name) {
-		this.name += name;
+		this.LayerName += name;
 	}
-	
+	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
+	/**
+	 * This method is responsible to get File path and save Data
+	 */
+	public Layer(String path)
+	{
+		// ************ initialize Set ************ //
+		set = new HashSet<GIS_element>();
+		// ************ initialize Layer name ************ //
+		LayerName = new String();
+		updateName(path);
+		// ************ initialize Set of Elements ************ //
+		CSVToMatrix cr = new CSVToMatrix(path);
+		for(int i=2; i < cr.getRowsSize(); i++)
+		{
+			Element element = new Element(cr.getRowAtIndexI(i),cr.getHeader(),cr.getColumnsSize());
+			add(element);
+		}
+	}
+	public Layer() {
+		// ************ initialize Set ************ //
+		set = new HashSet<GIS_element>();
+		// ************ initialize Layer name ************ //
+		LayerName = new String();
+	}
 	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{
-		String ans = "  Layer " + this.getName() + ":\n";
+		String ans = "  Layer ---> " + this.getName() + ":\n";
 		Iterator<GIS_element> it = set.iterator();
 		while(it.hasNext())
 			ans += "    " + it.next() + "\n";

@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import Algorithms.MultiCSV;
-import File_format.Project2KML;
+import File_format.Object2KML;
 import GIS.GIS_element;
 import GIS.GIS_layer;
 
@@ -19,20 +19,14 @@ class MultiCSVTest {
 	@Test
 	void testRecursiveFolder() throws IOException {
 		MultiCSV mc = new MultiCSV("./data/");
-		boolean fileExists = new File("./data/CheckReq/WigleWifi_20171201110209.kml").exists();
+		boolean fileExists = new File("./data/" + mc.getFileName()).exists();
 		if(!fileExists) fail("MultiCSV not Reqursive");
+
 		String ans = mc.getProject().toString();
 //		System.out.println(ans);  // Print all Project
+		
 		if(ans.isEmpty()) fail("No Project!");
-			
-		
-		
-		// * * * * * * * * * * KML Project * * * * * * * * //
-		mc.getProject().MakeKml("./data/ProjectKML.kml");
-		// * * * * * * * * * * * * * * * * * * * * * * * * //
-		
-		
-
+	
 		Set<GIS_layer> projectSet = mc.getProject().getSet();
 		Iterator<GIS_layer> it_project  = projectSet.iterator();
 		while(it_project.hasNext())

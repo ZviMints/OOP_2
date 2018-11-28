@@ -4,27 +4,25 @@
  * @author Tzvi Mints and Or Abuhazira
  */
 package File_format;
-
 import GIS.Layer;
-
 public class CSV2kml {
 	private Layer layer;
+	String path;
 	public CSV2kml(String path)
 	{
-		CSVToMatrix cr = new CSVToMatrix(path);
-		MatrixToLayer cw = new MatrixToLayer(cr);
-		Layer csv_layer = cw.MakeLayer();
-		layer = new Layer();
-		this.setLayer(csv_layer);
-		Layer2KML kml = new Layer2KML(csv_layer,path);
-		try {
-			kml.MakeFile();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		this.path = path;
+		layer = new Layer(path);
+		String dir = path.replaceAll(".csv", ".kml");
+		Object2KML kml = new Object2KML(layer,dir);
+			try {
+				kml.MakeFile();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
-	
-	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
+
+	/* * * * * * * * * * * * * * * * * * Getters * * * * * * * * * * * * * * * */
 	public Layer getLayer() { return layer; }
-	public void setLayer(Layer layer) { this.layer = layer; }
+	public String getPath() { return path; }
+
 }

@@ -1,44 +1,33 @@
+/**
+ * This Class Transfer Folder that include CSV to one KML File that Google Earth can read
+ * on the way we init Project that contains Layer and Element.
+ * @author Tzvi Mints and Or Abuhazira
+ */
 package Algorithms;
-import java.io.File;
-import java.io.IOException;
-import File_format.CSV2kml;
+import File_format.Object2KML;
 import GIS.Project;
 public class MultiCSV {
 	private Project project;
-	
-	/* * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
-	public Project getProject() { return project; }
-	public void setProject(Project project) { this.project = project; }
-	
-	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
-	public MultiCSV(String path) throws IOException
+	private String path;
+	private String filename = "Project.kml";
+	public MultiCSV(String path)
 	{
-		MultiWriter(path);
-	}
-	
-	/* * * * * * * * * * * * * * * * * * Methods * * * * * * * * * * * * * * * */
-	private void MultiWriter(String path) throws IOException {
-		project = new Project();
-		File root = new File(path);
-		File[] list = root.listFiles();
-		if (list == null) return; // The Folder not contain any files
-		for ( File f : list ) { // for all files in list
-			if (f.isDirectory()) { 
-				MultiWriter(f.getAbsolutePath()); // recursive 
-			}
-			else {
-				String Location = f.getAbsolutePath(); // Location <-- getting the Location of the file
-				String ending = Location.substring(Location.lastIndexOf(".") + 1 ); // ending <-- ending of the file
-				if(ending.equals("csv")) // if the file is ".csv" format 
-				{
-					try { 
-						CSV2kml kml = new CSV2kml(f.getAbsolutePath()); 
-						project.updateName(f.getAbsolutePath()); // Update Name
-						project.add(kml.getLayer());
-					} 
-					catch (Exception e) {} 
-				}
-			}
+		this.path = path;
+		project = new Project(path);
+		String dir;
+		if(!path.contains(".csv")) 
+			dir = path + filename; // Make KML Project with current name
+		else
+			dir = path.replaceAll(".csv", ".kml"); // if We Send .csv file to Project
+		Object2KML kml = new Object2KML(project,dir);
+		try {
+			kml.MakeFile();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
+	/* * * * * * * * * * * * * * * * * * Getters * * * * * * * * * * * * * * * */
+	public Project getProject() { return project; }
+	public String getPath() { return path; }
+	public String getFileName() { return filename; }
 }

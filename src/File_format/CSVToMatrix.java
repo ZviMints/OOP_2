@@ -8,6 +8,7 @@
 package File_format;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +20,12 @@ public class CSVToMatrix {
 	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
 	public CSVToMatrix(String path) {
 		this.setPath(path);
+		matrix = new ArrayList<ArrayList<String>>(); 
+		try {
+			br = new BufferedReader(new FileReader(new File(path)));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		try {
 			Reader();
 		} catch (IOException e) {
@@ -58,9 +65,6 @@ public class CSVToMatrix {
 	}
 	/* * * * * * * * * * * * * * * * * * Reader * * * * * * * * * * * * * * * */
 	public static void Reader() throws IOException {
-		matrix = new ArrayList<ArrayList<String>>(); 
-		File file = new File(path);
-		br = new BufferedReader(new FileReader(file));
 		String data = br.readLine();
 		int Columns = 0;
 		while(data != null)

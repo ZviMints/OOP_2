@@ -5,6 +5,7 @@
  * @author Tzvi Mints and Or Abuhazira
  */
 package GIS;
+import java.util.ArrayList;
 import Coords.MyCoords;
 import Geom.Geom_element;
 import Geom.Point3D;
@@ -12,8 +13,7 @@ import Geom.Point3D;
 public class Element implements GIS_element{
 	private Geom_element geo;
 	private Data data;
-	private String name = "";
-
+	private String name;
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
 	/**
 	 * This method returns the name of the current Element
@@ -38,12 +38,29 @@ public class Element implements GIS_element{
 		return data;
 	}
 	/* * * * * * * * * * * * * * * * * * Constructors * * * * * * * * * * * * * * * */
-	public Element(Geom_element geo,Data data)
-	{
-		this.geo = geo;
-		this.data = data;
+	public Element(ArrayList<String> row, ArrayList<String> header, int ColumnsSize) { 
+		// ************ initialize Geom_element ************ //
+		geo = new Point3D(Double.parseDouble(row.get(6)) // Latitude
+				         ,Double.parseDouble(row.get(7)) // Longitude
+				         ,Double.parseDouble(row.get(8))); // Altitude
+		// ************ initialize String ************ //
+		name = new String();
+		// ************ initialize Data ************ //
+		data = new Data();
+		for(int i=0; i < ColumnsSize; i++)
+		{
+			String s = header.get(i);
+			switch(s)
+			{
+			case "RSSI": data.setRSSI(row.get(i)); break;
+			case "FirstSeen": data.setFirstSeen(row.get(i)); break;
+			case "Channel": data.setChannel(row.get(i)); break;
+			case "SSID": data.setSSID(row.get(i));  break;
+			case "MAC": data.setMAC(row.get(i)); break;
+			case "AuthMode": data.setAuthMode(row.get(i)); break;
+			}
+		}
 	}
-
 	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{
@@ -52,7 +69,6 @@ public class Element implements GIS_element{
 		ans +=  "," + "Geom element" + ":" + geo;
 		return ans;
 	}
-
 	/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
 	@Override
 	public Geom_element getGeom() {

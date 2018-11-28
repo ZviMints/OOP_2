@@ -8,7 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Iterator;
 import org.junit.jupiter.api.Test;
 import File_format.CSV2kml;
+import File_format.Object2KML;
 import GIS.GIS_element;
+import GIS.Layer;
 import Geom.Point3D;
 class Csv2kmlTest {
 	@Test
@@ -19,10 +21,13 @@ class Csv2kmlTest {
 		{
 			GIS_element element = layer.next();
 			if(element == null) fail("No Element!");
-			// ***** Check Print ***** //
+
+//			 ***** Check Print ***** //
 //			System.out.println(element);
+			
 			// ***** Check UTC ***** //
 //			System.out.println("UTC Time:" + element.getData().getUTC());
+			
 			// ***** Check Translate ***** //
 //			Point3D vec = new Point3D(10,10,10);
 //			System.out.print("Before:" + element.getGeom() + " | ");

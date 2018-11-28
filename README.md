@@ -37,9 +37,9 @@ The File_format package is include the next Classes:
 <list>
 <li>CSV2KML:  get .CSV file as input, and transform it into a .KML file</li>
 <li>CSVToMatrix: get .CSV file as input, and transform it into a Matrix, we can take every cell in .CSV file in O(1)</li>
-<li>MatrixToLayer: gets Matrix that represent .CSV file and convert it into Layer, each Layer contain Elements that  represent a line in Matrix</li>
-<li>Layer2KML: gets Layer that represent .CSV file and convert it into valid .KML file</li>
-<li>Project2KML: gets Project that represent a Set of Layers and make a .KML file that represent all layers that are in the Set</li>
+<li>Object2KML: get Object such that Layer,Project or Element and convert it into a KML file</li>
+<h3>Object2KML Constructor:</h3>
+Object2KML Constructor  gets Object that represent Layer,Element or Project and get String, that String is that path were to put the kml file.
 </list>
 
 <br>
@@ -72,6 +72,10 @@ For example, a Layer in KML file:
 For example, a Project in KML file:
 <br><img src="./img/project.jpg"><br>
 </list>
+<h3>Layer Constructor:</h3>
+Layer Constructor get a String that represent path to .csv File and make a Elements from it and add them into his Set.
+<h3>Project Constructor:</h3>
+Project Constructor get a String that represent path to Folder and make a Layers  from it and add them into his Set.
 
 <h1>Junit Testing</h1>
 The Testing package is include the next Classes:
