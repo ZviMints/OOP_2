@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import File_format.Project2KML;
+
 public class Project implements GIS_project {
 	private Set<GIS_layer> set = new HashSet<GIS_layer>();
 	private Meta_data data;
@@ -37,7 +39,16 @@ public class Project implements GIS_project {
 	public void updateName(String name) {
 		this.name += name + ",";
 	}
-	
+	/* * * * * * * * * * * * * * * * * * MakeKml * * * * * * * * * * * * * * * */
+	public void MakeKml(String path)
+	{
+		Project2KML kml_project = new Project2KML(this,path);
+		try {
+			kml_project.MakeFile();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{

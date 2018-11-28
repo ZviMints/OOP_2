@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import Algorithms.MultiCSV;
+import File_format.Project2KML;
 import GIS.GIS_element;
 import GIS.GIS_layer;
 
@@ -39,5 +40,8 @@ class MultiCSVTest {
 //				System.out.println(element);
 			}
 		}
+		// * * * * * * * * * * KML Project * * * * * * * * //
+		mc.getProject().MakeKml("./data/ProjectKML.kml");
+		// * * * * * * * * * * * * * * * * * * * * * * * * //
 	}
 }

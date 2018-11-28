@@ -10,11 +10,11 @@ import GIS.Element;
 import GIS.Layer;
 import Geom.Geom_element;
 import Geom.Point3D;
-public class CSVWriter {
-	private CSVReader cr;
+public class MatrixToLayer {
+	private CSVToMatrix cr;
 	private Layer layer;
 	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
-	public CSVWriter(CSVReader cr)
+	public MatrixToLayer(CSVToMatrix cr)
 	{
 		this.cr = cr;
 		layer = new Layer();

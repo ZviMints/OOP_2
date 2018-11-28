@@ -7,16 +7,21 @@ package File_format;
 
 import GIS.Layer;
 
-public class Csv2kml {
+public class CSV2kml {
 	private Layer layer;
-	public Csv2kml(String path)
+	public CSV2kml(String path)
 	{
-		CSVReader cr = new CSVReader(path);
-		CSVWriter cw = new CSVWriter(cr);
+		CSVToMatrix cr = new CSVToMatrix(path);
+		MatrixToLayer cw = new MatrixToLayer(cr);
 		Layer csv_layer = cw.MakeLayer();
 		layer = new Layer();
 		this.setLayer(csv_layer);
 		Layer2KML kml = new Layer2KML(csv_layer,path);
+		try {
+			kml.MakeFile();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */

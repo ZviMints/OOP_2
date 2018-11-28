@@ -12,12 +12,13 @@ import java.util.Iterator;
 import java.util.TimeZone;
 import GIS.Element;
 import GIS.GIS_element;
-import GIS.Layer;
+import GIS.GIS_layer;
+import GIS.Project;
 import Geom.Point3D;
 
-public class Layer2KML {
+public class Project2KML {
 	private String path;
-	private Layer layer;
+	private Project project;
 	private String ans = "";
 	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
 	/**
@@ -25,11 +26,10 @@ public class Layer2KML {
 	 * @param layer is the input Layer
 	 * @param path is the path to put the KML file
 	 */
-	public Layer2KML(Layer layer,String path)
+	public Project2KML(Project project,String path)
 	{
-		this.layer = layer;
+		this.project = project;
 		this.path = path;
-		this.layer.updateName(path); // Update the name of the Layer
 		try {
 			Convert();
 		} catch (Exception e) {
@@ -102,20 +102,25 @@ public class Layer2KML {
 				+ "</Icon></IconStyle></Style>\n"
 				+ "<Folder><name>Wifi Networks</name>\n";
 		String KML_BODY = "";
-		Iterator<GIS_element> it = layer.getSet().iterator();
-		while(it.hasNext())
+		Iterator<GIS_layer> it_project  = project.getSet().iterator();
+		while(it_project.hasNext())
 		{
-			Element element = (Element) it.next();
-			Point3D point = (Point3D) element.getGeom();
-			KML_BODY += CSV_TO_KML(
-					element.getInfo().getMAC(),
-					element.getInfo().getSSID(),
-					element.getInfo().getAuthMode(),
-					element.getInfo().getFirstSeen(),
-					getFrequency(element.getInfo().getChannel()),
-					element.getInfo().getRSSI(),
-					point,
-					element.getInfo().getColor());
+			GIS_layer layer = it_project.next();
+			Iterator<GIS_element> it_element = layer.iterator();
+			while(it_element.hasNext())
+			{
+				Element element = (Element) it_element.next();
+				Point3D point = (Point3D) element.getGeom();
+				KML_BODY += CSV_TO_KML(
+						element.getInfo().getMAC(),
+						element.getInfo().getSSID(),
+						element.getInfo().getAuthMode(),
+						element.getInfo().getFirstSeen(),
+						getFrequency(element.getInfo().getChannel()),
+						element.getInfo().getRSSI(),
+						point,
+						element.getInfo().getColor());
+			}
 		}
 		String tail = "</Folder>" + "\n" 
 				+ "</Document></kml>";
@@ -156,13 +161,18 @@ public class Layer2KML {
 	 */
 	public void MakeFile() throws Exception
 	{
-		String filename = path.replaceAll(".csv", ".kml");
-		PrintWriter pw = new PrintWriter(new File(filename));
+		try {
+		PrintWriter pw = new PrintWriter(new File(path));
 		StringBuilder sb = new StringBuilder();	
 		sb.append(ans);
 		pw.write(sb.toString());
 		pw.close();
-		System.out.println("Success! made Layer file on path: "+filename);
+		System.out.println("Success! made Project file on path: "+path);
+		}
+		catch(Exception e)
+		{
+			throw new Exception("Cant make File in path:"+path);
+		}
 	}
 	/* * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()

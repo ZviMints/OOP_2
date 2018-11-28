@@ -12,12 +12,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CSVReader {
+public class CSVToMatrix {
 	private static String path;
 	private static ArrayList<ArrayList<String>> matrix;
 	private static BufferedReader br;
 	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
-	public CSVReader(String path) {
+	public CSVToMatrix(String path) {
 		this.setPath(path);
 		try {
 			Reader();
@@ -31,7 +31,7 @@ public class CSVReader {
 	}
 	
 	public void setPath(String path) { 
-		CSVReader.path = path; 
+		CSVToMatrix.path = path; 
 	}
 	public ArrayList<String> getHeader() {
 		return matrix.get(1);
