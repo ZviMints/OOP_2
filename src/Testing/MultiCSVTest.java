@@ -23,8 +23,15 @@ class MultiCSVTest {
 		String ans = mc.getProject().toString();
 //		System.out.println(ans);  // Print all Project
 		if(ans.isEmpty()) fail("No Project!");
+			
 		
 		
+		// * * * * * * * * * * KML Project * * * * * * * * //
+		mc.getProject().MakeKml("./data/ProjectKML.kml");
+		// * * * * * * * * * * * * * * * * * * * * * * * * //
+		
+		
+
 		Set<GIS_layer> projectSet = mc.getProject().getSet();
 		Iterator<GIS_layer> it_project  = projectSet.iterator();
 		while(it_project.hasNext())
@@ -40,8 +47,5 @@ class MultiCSVTest {
 //				System.out.println(element);
 			}
 		}
-		// * * * * * * * * * * KML Project * * * * * * * * //
-		mc.getProject().MakeKml("./data/ProjectKML.kml");
-		// * * * * * * * * * * * * * * * * * * * * * * * * //
 	}
 }

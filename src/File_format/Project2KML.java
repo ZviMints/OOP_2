@@ -161,18 +161,12 @@ public class Project2KML {
 	 */
 	public void MakeFile() throws Exception
 	{
-		try {
 		PrintWriter pw = new PrintWriter(new File(path));
 		StringBuilder sb = new StringBuilder();	
 		sb.append(ans);
 		pw.write(sb.toString());
 		pw.close();
 		System.out.println("Success! made Project file on path: "+path);
-		}
-		catch(Exception e)
-		{
-			throw new Exception("Cant make File in path:"+path);
-		}
 	}
 	/* * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()

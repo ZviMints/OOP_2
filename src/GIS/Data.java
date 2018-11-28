@@ -46,7 +46,8 @@ public class Data implements Meta_data {
 				+"Channel" + ":" + getChannel() + ","
 				+"SSID" + ":" + getSSID() + ","
 				+"MAC" + ":" + getMAC() + ","
-				+"AuthMode" + ":" + getAuthMode();
+				+"AuthMode" + ":" + getAuthMode()
+		        +"Color" + ":" + getColor();
 		return ans;
 	}
 

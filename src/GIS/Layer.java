@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class Layer implements GIS_layer {
 	private Set<GIS_element> set = new HashSet<GIS_element>();
-	private Meta_data data;
+	private Meta_data data; // We can insert data here. for now we did not enter any data.
 	public String name = "-->";
 
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */

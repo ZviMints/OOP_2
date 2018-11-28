@@ -13,7 +13,7 @@ import File_format.Project2KML;
 
 public class Project implements GIS_project {
 	private Set<GIS_layer> set = new HashSet<GIS_layer>();
-	private Meta_data data;
+	private Meta_data data; // We can insert data here. for now we did not enter any data.
 	private String name = "-->";
 	
 	
