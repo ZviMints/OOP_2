@@ -63,8 +63,15 @@ The GIS package is include the next Classes:
 <li>Data: class that implements Meta_data, have information about a Point</li>
 <li>GIS_element:  an interface that represent a Element, each Geom element have Geom element and Meta_data</li>
 <li>Element: class that implements GIS_element, have Geom element and Data, each Point is an element</li>
-<li>GIS_layer:  an interface that represent a set of GIS_element</li>
+<li>GIS_layer: an interface that represent a set of GIS_element</li>
 <li>Layer: class that represent a Set of elements, for example one .CSV file</li>
+<li>GIS_Project: an interface that represent a set of GIS_layer</li>
+<li>Project: This Class represent Project that is a Set of Layers</li>
+<li>MetaElement: This Class represent Data that implements Meta_data, each Data is a Line information,each Data have RSSI,FirstSeen,Channel,SSID,Mac,Authmode. </li>
+<li>MeatLayer: This Class Represent Layer Data such as Time,Path</li>
+<li>MetaProject: This Class Represent Project Data such as Time,Path</li>
+
+
 For example, a Layer in KML file:
 <br><img src="./img/layer.jpg"><br>
 <li>GIS_project:   an interface that represent a set of GIS_layer</li>
@@ -84,6 +91,7 @@ The Testing package is include the next Classes:
 <li>Csv2kml Junit Test: Test CSV2kml class</li>
 <li>MultiCSV Junit Test: Test MultiCSV class</li>
 <li>MyCoords Junit Test: Test MyCoords class</li>
+<li>GISTest Junit Test: Test Project and Layer under GIS package</li>
 </list>
 
 

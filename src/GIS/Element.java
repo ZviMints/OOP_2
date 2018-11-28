@@ -13,38 +13,21 @@ import Geom.Point3D;
 public class Element implements GIS_element{
 	private Geom_element geo;
 	private MetaElement metaElement;
-	private String name;
+
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
-	/**
-	 * This method returns the name of the current Element
-	 * @return String that represent the name of the Element
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
-	 * This method is responsible to Update the current Element name
-	 */
-	public void updateName(String name) {
-		this.name += name + ",";
-	}
 	/**
 	 * This method is responsible return all the information
 	 * that data have, for example SSID,Channel and more.
 	 * @return Data
 	 */
-	public MetaElement getInfo()
-	{
-		return metaElement;
-	}
+	public MetaElement getInfo() { return metaElement; }
+	
 	/* * * * * * * * * * * * * * * * * * Constructors * * * * * * * * * * * * * * * */
 	public Element(ArrayList<String> row, ArrayList<String> header, int ColumnsSize) { 
 		// ************ initialize Geom_element ************ //
 		geo = new Point3D(Double.parseDouble(row.get(6)) // Latitude
 				         ,Double.parseDouble(row.get(7)) // Longitude
 				         ,Double.parseDouble(row.get(8))); // Altitude
-		// ************ initialize String ************ //
-		name = new String();
 		// ************ initialize Meta Element ************ //
 		metaElement = new MetaElement();
 		for(int i=0; i < ColumnsSize; i++)
@@ -64,7 +47,7 @@ public class Element implements GIS_element{
 	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{
-		String ans = "Element:" + this.getName() + "--> ";
+		String ans = "Element:" + "--> ";
 		ans += metaElement.toString();
 		ans +=  "," + "Geom element" + ":" + geo;
 		return ans;
@@ -85,5 +68,4 @@ public class Element implements GIS_element{
 		MyCoords coords = new MyCoords();
 		geo = new Point3D(coords.add(p, vec));
 	}
-
 }

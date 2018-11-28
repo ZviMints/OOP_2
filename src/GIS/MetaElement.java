@@ -76,5 +76,4 @@ public class MetaElement implements Meta_data {
 			this.setColor("red");
 		return Color; 
 	}
-
 }

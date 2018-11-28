@@ -9,17 +9,8 @@ import java.util.*;
 public class Project implements GIS_project {
 	private Set<GIS_layer> set;
 	private MetaProject data; 
-	private String ProjectName;
-
 
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
-	/**
-	 * This method returns the name of the current Project
-	 * @return String that represent the name of the Project
-	 */
-	public String getName() {
-		return ProjectName;
-	}
 	/**
 	 * This method returns the Set of  GIS_layer,
 	 * Each project is set of layers
@@ -27,12 +18,6 @@ public class Project implements GIS_project {
 	 */
 	public Set<GIS_layer> getSet() {
 		return set;
-	}
-	/**
-	 * This method is responsible to Update the current Project name
-	 */
-	public void updateName(String name) {
-		this.ProjectName += name + ",";
 	}
 	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
 	/**
@@ -43,11 +28,8 @@ public class Project implements GIS_project {
 	{
 		// ************ initialize Set ************ //
 		set = new HashSet<GIS_layer>();
-		// ************ initialize name ************ //
-		ProjectName = new String();
 		// ************ initialize Meta Data  ************ //
-		data = new MetaProject();
-		
+		data = new MetaProject(path);
 		// ************ initialize Set of Layers ************ //
 		try {
 			RecursiveSearch(path);
@@ -58,8 +40,6 @@ public class Project implements GIS_project {
 	public Project() {
 		// ************ initialize Set ************ //
 		set = new HashSet<GIS_layer>();
-		// ************ initialize name ************ //
-		ProjectName = new String();
 		// ************ initialize Project Data  ************ //
 		data = new MetaProject();
 	}
@@ -74,7 +54,7 @@ public class Project implements GIS_project {
 				System.err.println("Enter folder! if u want to make .csv file then use Layer");
 			}
 			else
-			return; // The Folder not contain any files
+				return; // The Folder not contain any files
 		}
 		for ( File f : list ) { // for all files in list
 			if (f.isDirectory()) { 
@@ -88,70 +68,73 @@ public class Project implements GIS_project {
 					try { 
 						Layer layer = new Layer(Location);
 						this.add(layer);
-						this.updateName(root.getAbsolutePath());
+						data.updateName(Location);
+						
 					} 
+					
 					catch (Exception e) {} 
 				}
 			}
 		}
-}
-/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
-public String toString()
-{
-	String ans = "Project ---> " + this.getName() + "\n";
-	Iterator<GIS_layer> it = set.iterator();
-	while(it.hasNext())
+	}
+	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
+	public String toString()
 	{
-		Layer layer = (Layer) it.next();
-		ans += layer + "    "+ "*************"
-				+ "*************"
-				+ "*************"
-				+ "*************"
-				+ "*************"
-				+ "*************"
-				+ "\n"; }
-	return ans;
-}
-/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
-@Override
-public boolean add(GIS_layer e) { return set.add(e); }
+		String ans = data.toString();
+		Iterator<GIS_layer> it = set.iterator();
+		while(it.hasNext())
+		{
+			Layer layer = (Layer) it.next();
+			ans += layer + "    "
+			        + "*************"
+					+ "*************"
+					+ "*************"
+					+ "*************"
+					+ "*************"
+					+ "*************"
+					+ "\n"; }
+		return ans;
+	}
+	/* * * * * * * * * * * * * * * * * * Override * * * * * * * * * * * * * * * */
+	@Override
+	public boolean add(GIS_layer e) { return set.add(e); }
 
-@Override
-public boolean addAll(Collection<? extends GIS_layer> c) { return set.addAll(c); }
+	@Override
+	public boolean addAll(Collection<? extends GIS_layer> c) { return set.addAll(c); }
 
-@Override
-public void clear() { set.clear();  }
+	@Override
+	public void clear() { set.clear();  }
 
-@Override
-public boolean contains(Object o) { return set.contains(o); }
+	@Override
+	public boolean contains(Object o) { return set.contains(o); }
 
-@Override
-public boolean containsAll(Collection<?> c) { return set.containsAll(c); }
+	@Override
+	public boolean containsAll(Collection<?> c) { return set.containsAll(c); }
 
-@Override
-public boolean isEmpty() { return set.isEmpty(); }
+	@Override
+	public boolean isEmpty() { return set.isEmpty(); }
 
-@Override
-public Iterator<GIS_layer> iterator() { return set.iterator(); }
+	@Override
+	public Iterator<GIS_layer> iterator() { return set.iterator(); }
 
-@Override
-public boolean remove(Object o) { return set.remove(o); }
+	@Override
+	public boolean remove(Object o) { return set.remove(o); }
 
-@Override
-public boolean removeAll(Collection<?> c) { return set.removeAll(c); }
+	@Override
+	public boolean removeAll(Collection<?> c) { return set.removeAll(c); }
 
-@Override
-public boolean retainAll(Collection<?> c) { return set.retainAll(c); }
+	@Override
+	public boolean retainAll(Collection<?> c) { return set.retainAll(c); }
 
-@Override
-public int size() { return set.size(); }
+	@Override
+	public int size() { return set.size(); }
 
-@Override
-public Object[] toArray() { return set.toArray(); }
+	@Override
+	public Object[] toArray() { return set.toArray(); }
 
-@Override
-public <T> T[] toArray(T[] a) { return set.toArray(a); }
+	@Override
+	public <T> T[] toArray(T[] a) { return set.toArray(a); }
 
-@Override
-public Meta_data get_Meta_data() { return data; }
+	@Override
+	public Meta_data get_Meta_data() { return data; }
 }

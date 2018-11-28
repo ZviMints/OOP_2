@@ -5,20 +5,11 @@
 package GIS;
 import java.util.*;
 import File_format.*;
-
 public class Layer implements GIS_layer {
 	private Set<GIS_element> set;
 	private MetaLayer data;
-	public String LayerName;
 
 	/* * * * * * * * * * * * * * * * * * Setters and Getters * * * * * * * * * * * * * * * */
-	/**
-	 * This method returns the name of the current Layer
-	 * @return String that represent the name of the Layer
-	 */
-	public String getName() {
-		return LayerName;
-	}
 	/**
 	 * This method returns the Set of  GIS_element,
 	 * Each project is set of elements
@@ -27,23 +18,17 @@ public class Layer implements GIS_layer {
 	public Set<GIS_element> getSet() {
 		return set;
 	}
-	/**
-	 * This method is responsible to Update the current Layer name
-	 */
-	public void updateName(String name) {
-		this.LayerName += name;
-	}
+
 	/* * * * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * */
 	/**
 	 * This method is responsible to get File path and save Data
 	 */
 	public Layer(String path)
 	{
+		// ************ initialize Layer Data  ************ //
+		data = new MetaLayer(path);
 		// ************ initialize Set ************ //
 		set = new HashSet<GIS_element>();
-		// ************ initialize Layer name ************ //
-		LayerName = new String();
-		updateName(path);
 		// ************ initialize Set of Elements ************ //
 		CSVToMatrix cr = new CSVToMatrix(path);
 		for(int i=2; i < cr.getRowsSize(); i++)
@@ -51,14 +36,10 @@ public class Layer implements GIS_layer {
 			Element element = new Element(cr.getRowAtIndexI(i),cr.getHeader(),cr.getColumnsSize());
 			add(element);
 		}
-		// ************ initialize Layer Data  ************ //
-		data = new MetaLayer();
 	}
 	public Layer() {
 		// ************ initialize Set ************ //
 		set = new HashSet<GIS_element>();
-		// ************ initialize Layer name ************ //
-		LayerName = new String();
 		// ************ initialize Layer Data  ************ //
 		data = new MetaLayer();
 		
@@ -66,7 +47,7 @@ public class Layer implements GIS_layer {
 	/* * * * * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
 	{
-		String ans = "  Layer ---> " + this.getName() + ", Created at:" + data.getUTC() +":\n";
+		String ans = data.toString();
 		Iterator<GIS_element> it = set.iterator();
 		while(it.hasNext())
 			ans += "    " + it.next() + "\n";
