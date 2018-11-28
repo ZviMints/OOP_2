@@ -1,6 +1,7 @@
 /**
  * This Test Class Testing Csv2Kml
  * @author Tzvi Mints and Or Abuhazira
+ * @version 2.0
  */
 package Testing;
 import static org.junit.jupiter.api.Assertions.*;
