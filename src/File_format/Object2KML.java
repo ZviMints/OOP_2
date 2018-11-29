@@ -188,7 +188,7 @@ public class Object2KML {
 		case "13": return "2472";
 		case "14": return "2484";
 		}
-		return "No Frequency";
+		return channel;
 	}
 	/* * * * * * * * * * * * * * * toString * * * * * * * * * * * * * * * */
 	public String toString()
